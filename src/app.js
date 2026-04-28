@@ -5,8 +5,20 @@ import { loadEnvFile } from "./env.js";
 import { appendAuditLog, appendRejectedLog, ensureStorage, loadRegistry, saveRegistry } from "./storage.js";
 import { sendToTelegram } from "./telegram.js";
 
-loadEnvFile();
-await ensureStorage();
+let initPromise;
+
+async function ensureAppReady() {
+  if (!initPromise) {
+    initPromise = (async () => {
+      loadEnvFile();
+      await ensureStorage();
+    })().catch((error) => {
+      initPromise = null;
+      throw error;
+    });
+  }
+  return initPromise;
+}
 
 const port = Number(process.env.PORT || 3000);
 const publicBaseUrl = process.env.PUBLIC_BASE_URL || `http://localhost:${port}`;
@@ -464,10 +476,12 @@ async function handleAdminForms(req, res, pathname) {
 }
 
 export async function appHandler(req, res) {
-  const url = new URL(req.url, `http://${req.headers.host || "localhost"}`);
-  const pathname = url.pathname;
-
   try {
+    await ensureAppReady();
+
+    const url = new URL(req.url, `http://${req.headers.host || "localhost"}`);
+    const pathname = url.pathname;
+
     if (req.method === "GET" && pathname === "/") {
       return sendRoot(res);
     }
