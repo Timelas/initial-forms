@@ -327,6 +327,7 @@ export function renderAdminPage(initialData = { sites: [], forms: [] }) {
             </div>
             <label><span class="tiny">Разрешенные домены для отправки, по одному на строку</span><textarea id="formOrigins" placeholder="Обычно совпадают с доменами сайта"></textarea></label>
             <div class="grid-2">
+              <label><span class="tiny">Тестирование</span><select id="useDefaultTelegram"><option value="false">Нет</option><option value="true">Да, использовать TG_DEFAULT_*</option></select></label>
               <label><span class="tiny">Переменная окружения с токеном Telegram</span><input id="tokenEnvKey" placeholder="TG_DEFAULT_BOT_TOKEN" /></label>
               <label><span class="tiny">Переменные окружения с chat id, через запятую</span><input id="chatEnvKeys" placeholder="TG_DEFAULT_CHAT_ID" /></label>
               <label><span class="tiny">Антиспам включен</span><select id="antiSpamEnabled"><option value="true">Да</option><option value="false">Нет</option></select></label>
@@ -386,7 +387,7 @@ export function renderAdminPage(initialData = { sites: [], forms: [] }) {
       const ids = [
         "siteName","siteDomains",
         "formTitle","formOrigins",
-        "tokenEnvKey","chatEnvKeys","antiSpamEnabled","turnstileEnabled","honeypotField","minFillTimeMs","rateWindowMs","rateMax"
+        "useDefaultTelegram","tokenEnvKey","chatEnvKeys","antiSpamEnabled","turnstileEnabled","honeypotField","minFillTimeMs","rateWindowMs","rateMax"
       ];
 
       const formInputs = Object.fromEntries(ids.map((id) => [id, document.getElementById(id)]));
@@ -624,10 +625,48 @@ export function renderAdminPage(initialData = { sites: [], forms: [] }) {
         }).filter((field) => field.name);
       }
 
+      function isDefaultTelegramConfig(form) {
+        return form?.telegramConfig?.tokenEnvKey === "TG_DEFAULT_BOT_TOKEN" &&
+          Array.isArray(form?.telegramConfig?.chatEnvKeys) &&
+          form.telegramConfig.chatEnvKeys.length === 1 &&
+          form.telegramConfig.chatEnvKeys[0] === "TG_DEFAULT_CHAT_ID";
+      }
+
+      function syncTelegramMode() {
+        const useDefault = formInputs.useDefaultTelegram.value === "true";
+        const tokenInput = formInputs.tokenEnvKey;
+        const chatInput = formInputs.chatEnvKeys;
+
+        if (useDefault) {
+          if (!tokenInput.dataset.manualValue) {
+            tokenInput.dataset.manualValue = tokenInput.value;
+          }
+          if (!chatInput.dataset.manualValue) {
+            chatInput.dataset.manualValue = chatInput.value;
+          }
+          tokenInput.value = "TG_DEFAULT_BOT_TOKEN";
+          chatInput.value = "TG_DEFAULT_CHAT_ID";
+          tokenInput.disabled = true;
+          chatInput.disabled = true;
+        } else {
+          tokenInput.disabled = false;
+          chatInput.disabled = false;
+          if (tokenInput.dataset.manualValue !== undefined) {
+            tokenInput.value = tokenInput.dataset.manualValue;
+            delete tokenInput.dataset.manualValue;
+          }
+          if (chatInput.dataset.manualValue !== undefined) {
+            chatInput.value = chatInput.dataset.manualValue;
+            delete chatInput.dataset.manualValue;
+          }
+        }
+      }
+
       function renderFormEditor() {
         const form = getSelectedForm();
         formInputs.formTitle.value = form?.title || "";
         formInputs.formOrigins.value = (form?.allowedOrigins || []).join("\\n");
+        formInputs.useDefaultTelegram.value = String(isDefaultTelegramConfig(form));
         formInputs.tokenEnvKey.value = form?.telegramConfig?.tokenEnvKey || "";
         formInputs.chatEnvKeys.value = (form?.telegramConfig?.chatEnvKeys || []).join(", ");
         formInputs.antiSpamEnabled.value = String(form?.antiSpamConfig?.enabled ?? true);
@@ -636,6 +675,7 @@ export function renderAdminPage(initialData = { sites: [], forms: [] }) {
         formInputs.minFillTimeMs.value = String(form?.antiSpamConfig?.minFillTimeMs ?? 1500);
         formInputs.rateWindowMs.value = String(form?.antiSpamConfig?.rateLimit?.windowMs ?? 60000);
         formInputs.rateMax.value = String(form?.antiSpamConfig?.rateLimit?.max ?? 5);
+        syncTelegramMode();
         renderFieldRows(form?.fields || []);
         renderPreview();
       }
@@ -767,8 +807,8 @@ export function renderAdminPage(initialData = { sites: [], forms: [] }) {
           requiredFields: fields.filter((field) => field.required).map((field) => field.map || field.name),
           acceptedContentTypes: defaultContentTypes,
           telegramConfig: {
-            tokenEnvKey: formInputs.tokenEnvKey.value.trim(),
-            chatEnvKeys: csv(formInputs.chatEnvKeys.value)
+            tokenEnvKey: formInputs.useDefaultTelegram.value === "true" ? "TG_DEFAULT_BOT_TOKEN" : formInputs.tokenEnvKey.value.trim(),
+            chatEnvKeys: formInputs.useDefaultTelegram.value === "true" ? ["TG_DEFAULT_CHAT_ID"] : csv(formInputs.chatEnvKeys.value)
           },
           antiSpamConfig: {
             enabled: formInputs.antiSpamEnabled.value === "true",
@@ -825,6 +865,8 @@ export function renderAdminPage(initialData = { sites: [], forms: [] }) {
         renderFormEditor();
         renderFieldRows([]);
         formInputs.formOrigins.value = (getSelectedSite()?.frontendDomains || []).join("\\n");
+        formInputs.useDefaultTelegram.value = "true";
+        syncTelegramMode();
         showStatus("Новая форма. Заполните поля и сохраните.");
       };
       document.getElementById("saveSiteBtn").onclick = () => runWithButton(
@@ -857,6 +899,10 @@ export function renderAdminPage(initialData = { sites: [], forms: [] }) {
         showStatus("JS пример скопирован");
       };
       ids.forEach((id) => formInputs[id].addEventListener("input", renderPreview));
+      formInputs.useDefaultTelegram.addEventListener("change", () => {
+        syncTelegramMode();
+        renderPreview();
+      });
 
       loadData().catch((error) => showStatus(error.message, true));
     </script>
