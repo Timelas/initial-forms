@@ -1,5 +1,5 @@
 import http from "node:http";
-import { appHandler, getPublicBaseUrl } from "./app.js";
+import { appHandler, getPublicBaseUrl } from "./http-app.js";
 
 const port = Number(process.env.PORT || 3000);
 

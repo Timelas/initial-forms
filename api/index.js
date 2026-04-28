@@ -1,4 +1,4 @@
-import { appHandler } from "../src/app.js";
+import { appHandler } from "../src/http-app.js";
 
 export default async function handler(req, res) {
   try {
