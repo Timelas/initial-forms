@@ -361,7 +361,15 @@ async function handleAdminPage(req, res) {
   if (!hasAdminAccess(req)) {
     return html(res, 200, renderAdminLoginPage());
   }
-  html(res, 200, renderAdminPage());
+  const registry = await loadRegistry();
+  html(
+    res,
+    200,
+    renderAdminPage({
+      sites: registry.sites || [],
+      forms: registry.forms || []
+    })
+  );
 }
 
 async function handleAdminLogin(req, res) {

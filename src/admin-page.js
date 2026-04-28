@@ -1,4 +1,11 @@
-export function renderAdminPage() {
+function escapeInlineJson(value) {
+  return JSON.stringify(value)
+    .replaceAll("<", "\\u003c")
+    .replaceAll(">", "\\u003e")
+    .replaceAll("&", "\\u0026");
+}
+
+export function renderAdminPage(initialData = { sites: [], forms: [] }) {
   return `<!doctype html>
 <html lang="ru">
   <head>
@@ -353,10 +360,11 @@ export function renderAdminPage() {
     </div>
     <script>
       const BACKEND_BASE_URL = "https://initial-forms.ru";
+      const INITIAL_DATA = ${escapeInlineJson(initialData)};
 
       const state = {
-        sites: [],
-        forms: [],
+        sites: Array.isArray(INITIAL_DATA.sites) ? INITIAL_DATA.sites : [],
+        forms: Array.isArray(INITIAL_DATA.forms) ? INITIAL_DATA.forms : [],
         selectedSiteId: null,
         selectedFormKey: null
       };
@@ -658,9 +666,11 @@ export function renderAdminPage() {
 
       async function loadData() {
         showStatus("Загружаем сайты и формы...");
-        const bootstrap = await api("/api/admin/bootstrap");
-        state.sites = bootstrap.sites;
-        state.forms = bootstrap.forms;
+        if (state.sites.length === 0 && state.forms.length === 0) {
+          const bootstrap = await api("/api/admin/bootstrap");
+          state.sites = bootstrap.sites;
+          state.forms = bootstrap.forms;
+        }
         if (!state.selectedSiteId && state.sites[0]) {
           state.selectedSiteId = state.sites[0].siteId;
         }
