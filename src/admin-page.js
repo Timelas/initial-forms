@@ -201,13 +201,10 @@ export function renderAdminPage() {
           <section class="panel section">
             <h2>Site</h2>
             <div class="grid-2">
-              <label><span class="tiny">Site ID</span><input id="siteId" /></label>
               <label><span class="tiny">Name</span><input id="siteName" /></label>
-              <label><span class="tiny">Status</span><input id="siteStatus" value="active" /></label>
-              <label><span class="tiny">API Base URL</span><input id="siteApiBaseUrl" /></label>
             </div>
+            <p class="muted tiny">Frontend всегда отправляет формы на backend: <strong>https://initial-forms.ru</strong></p>
             <label><span class="tiny">Frontend Domains, one per line</span><textarea id="siteDomains"></textarea></label>
-            <label><span class="tiny">Notes</span><textarea id="siteNotes"></textarea></label>
             <div class="row">
               <button id="saveSiteBtn">Save Site</button>
               <button id="deleteSiteBtn" class="ghost">Delete Site</button>
@@ -225,10 +222,7 @@ export function renderAdminPage() {
           <section class="panel section">
             <h2>Form</h2>
             <div class="grid-2">
-              <label><span class="tiny">Form Key</span><input id="formKey" /></label>
               <label><span class="tiny">Title</span><input id="formTitle" /></label>
-              <label><span class="tiny">Accepted Content Types</span><input id="formContentTypes" value="application/json, application/x-www-form-urlencoded, multipart/form-data" /></label>
-              <label><span class="tiny">Enabled</span><select id="formEnabled"><option value="true">true</option><option value="false">false</option></select></label>
             </div>
             <label><span class="tiny">Allowed Origins, one per line</span><textarea id="formOrigins"></textarea></label>
             <label><span class="tiny">Required Fields, comma separated</span><input id="formRequiredFields" /></label>
@@ -266,6 +260,8 @@ export function renderAdminPage() {
       </main>
     </div>
     <script>
+      const BACKEND_BASE_URL = "https://initial-forms.ru";
+
       const state = {
         sites: [],
         forms: [],
@@ -282,12 +278,17 @@ export function renderAdminPage() {
       };
 
       const ids = [
-        "siteId","siteName","siteStatus","siteApiBaseUrl","siteDomains","siteNotes",
-        "formKey","formTitle","formContentTypes","formEnabled","formOrigins","formRequiredFields",
+        "siteName","siteDomains",
+        "formTitle","formOrigins","formRequiredFields",
         "tokenEnvKey","chatEnvKeys","antiSpamEnabled","turnstileEnabled","honeypotField","minFillTimeMs","rateWindowMs","rateMax"
       ];
 
       const formInputs = Object.fromEntries(ids.map((id) => [id, document.getElementById(id)]));
+      const defaultContentTypes = [
+        "application/json",
+        "application/x-www-form-urlencoded",
+        "multipart/form-data"
+      ];
 
       function showStatus(message, isError = false) {
         els.status.textContent = message;
@@ -317,6 +318,30 @@ export function renderAdminPage() {
 
       function csv(value) {
         return value.split(",").map((line) => line.trim()).filter(Boolean);
+      }
+
+      function slugify(value) {
+        return String(value || "")
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, "_")
+          .replace(/^_+|_+$/g, "")
+          .replace(/_+/g, "_");
+      }
+
+      function uniqueSlug(base, existingValues, currentValue = "") {
+        const seed = base || "item";
+        const taken = new Set(existingValues.filter(Boolean));
+        if (currentValue) {
+          taken.delete(currentValue);
+        }
+        if (!taken.has(seed)) {
+          return seed;
+        }
+        let index = 2;
+        while (taken.has(seed + "_" + index)) {
+          index += 1;
+        }
+        return seed + "_" + index;
       }
 
       function getSelectedSite() {
@@ -360,12 +385,8 @@ export function renderAdminPage() {
 
       function renderSiteEditor() {
         const site = getSelectedSite();
-        formInputs.siteId.value = site?.siteId || "";
         formInputs.siteName.value = site?.name || "";
-        formInputs.siteStatus.value = site?.status || "active";
-        formInputs.siteApiBaseUrl.value = site?.apiBaseUrl || "";
         formInputs.siteDomains.value = (site?.frontendDomains || []).join("\\n");
-        formInputs.siteNotes.value = site?.notes || "";
       }
 
       function renderFieldRows(fields) {
@@ -406,10 +427,7 @@ export function renderAdminPage() {
 
       function renderFormEditor() {
         const form = getSelectedForm();
-        formInputs.formKey.value = form?.formKey || "";
         formInputs.formTitle.value = form?.title || "";
-        formInputs.formContentTypes.value = (form?.acceptedContentTypes || []).join(", ");
-        formInputs.formEnabled.value = String(form?.enabled ?? true);
         formInputs.formOrigins.value = (form?.allowedOrigins || []).join("\\n");
         formInputs.formRequiredFields.value = (form?.requiredFields || []).join(", ");
         formInputs.tokenEnvKey.value = form?.telegramConfig?.tokenEnvKey || "";
@@ -426,8 +444,14 @@ export function renderAdminPage() {
 
       function renderPreview() {
         const site = getSelectedSite();
-        const formKey = formInputs.formKey.value.trim();
-        const endpoint = site && formKey ? site.apiBaseUrl.replace(/\\/$/, "") + "/api/forms/" + formKey : "";
+        const currentForm = getSelectedForm();
+        const generatedFormKey = uniqueSlug(
+          slugify(formInputs.formTitle.value),
+          state.forms.filter((form) => form.siteId === site?.siteId).map((form) => form.formKey),
+          currentForm?.formKey || ""
+        );
+        const formKey = currentForm?.formKey || generatedFormKey;
+        const endpoint = site && formKey ? BACKEND_BASE_URL + "/api/forms/" + formKey : "";
         els.endpointPreview.textContent = endpoint || "Select a site and form";
         els.jsPreview.textContent = endpoint ? [
           "fetch(\\"" + endpoint + "\\", {",
@@ -464,13 +488,18 @@ export function renderAdminPage() {
       }
 
       async function saveSite() {
+        const currentSite = getSelectedSite();
+        const generatedSiteId = uniqueSlug(
+          slugify(formInputs.siteName.value),
+          state.sites.map((site) => site.siteId),
+          currentSite?.siteId || ""
+        );
         const payload = {
-          siteId: formInputs.siteId.value.trim(),
+          siteId: currentSite?.siteId || generatedSiteId,
           name: formInputs.siteName.value.trim(),
-          status: formInputs.siteStatus.value.trim(),
-          apiBaseUrl: formInputs.siteApiBaseUrl.value.trim(),
-          frontendDomains: lines(formInputs.siteDomains.value),
-          notes: formInputs.siteNotes.value.trim()
+          status: "active",
+          apiBaseUrl: BACKEND_BASE_URL,
+          frontendDomains: lines(formInputs.siteDomains.value)
         };
         const exists = state.sites.some((site) => site.siteId === payload.siteId);
         const path = exists ? "/api/admin/sites/" + encodeURIComponent(payload.siteId) : "/api/admin/sites";
@@ -498,16 +527,22 @@ export function renderAdminPage() {
       async function saveForm() {
         const site = getSelectedSite();
         if (!site) throw new Error("Select a site first");
+        const currentForm = getSelectedForm();
         const fields = parseFieldRows();
+        const generatedFormKey = uniqueSlug(
+          slugify(formInputs.formTitle.value),
+          state.forms.filter((form) => form.siteId === site.siteId).map((form) => form.formKey),
+          currentForm?.formKey || ""
+        );
         const payload = {
-          formKey: formInputs.formKey.value.trim(),
+          formKey: currentForm?.formKey || generatedFormKey,
           siteId: site.siteId,
           title: formInputs.formTitle.value.trim(),
           allowedOrigins: lines(formInputs.formOrigins.value),
           aliases: Object.fromEntries(fields.map((field) => [field.name, field.aliases])),
           fields,
           requiredFields: csv(formInputs.formRequiredFields.value),
-          acceptedContentTypes: csv(formInputs.formContentTypes.value),
+          acceptedContentTypes: defaultContentTypes,
           telegramConfig: {
             tokenEnvKey: formInputs.tokenEnvKey.value.trim(),
             chatEnvKeys: csv(formInputs.chatEnvKeys.value)
@@ -522,7 +557,7 @@ export function renderAdminPage() {
               max: Number(formInputs.rateMax.value || 5)
             }
           },
-          enabled: formInputs.formEnabled.value === "true"
+          enabled: true
         };
         const exists = state.forms.some((form) => form.formKey === payload.formKey);
         const path = exists ? "/api/admin/forms/" + encodeURIComponent(payload.formKey) : "/api/admin/forms";
