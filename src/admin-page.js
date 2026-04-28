@@ -5,6 +5,7 @@ export function renderAdminPage() {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Forms Admin</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <style>
       :root {
         --bg: #f5efe6;
@@ -556,7 +557,7 @@ export function renderAdminPage() {
       function escapeAttr(value) {
         return String(value)
           .replaceAll("&", "&amp;")
-          .replaceAll("\"", "&quot;")
+          .replaceAll('"', "&quot;")
           .replaceAll("<", "&lt;")
           .replaceAll(">", "&gt;");
       }
@@ -841,6 +842,7 @@ export function renderAdminLoginPage() {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Forms Admin Login</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <style>
       :root {
         --bg: #f5efe6;

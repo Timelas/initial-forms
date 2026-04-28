@@ -2,6 +2,7 @@ import crypto from "node:crypto";
 import { URL } from "node:url";
 import { renderAdminLoginPage, renderAdminPage } from "./admin-page.js";
 import { loadEnvFile } from "./env.js";
+import { faviconSvg } from "./favicon.js";
 import { appendAuditLog, appendRejectedLog, ensureStorage, loadRegistry, saveRegistry } from "./storage.js";
 import { sendToTelegram } from "./telegram.js";
 
@@ -57,6 +58,15 @@ function html(res, statusCode, payload) {
     "Content-Type": "text/html; charset=utf-8",
     "Content-Length": Buffer.byteLength(payload),
     "Cache-Control": "no-store"
+  });
+  res.end(payload);
+}
+
+function svg(res, statusCode, payload) {
+  res.writeHead(statusCode, {
+    "Content-Type": "image/svg+xml; charset=utf-8",
+    "Content-Length": Buffer.byteLength(payload),
+    "Cache-Control": "public, max-age=86400"
   });
   res.end(payload);
 }
@@ -385,6 +395,15 @@ function sendRoot(res) {
   });
 }
 
+function sendFavicon(req, res) {
+  if (req.url === "/favicon.ico") {
+    res.writeHead(302, { Location: "/favicon.svg", "Cache-Control": "public, max-age=86400" });
+    res.end();
+    return;
+  }
+  svg(res, 200, faviconSvg);
+}
+
 async function handleFormOptions(req, res, formKey) {
   const registry = await loadRegistry();
   const form = registry.forms.find((item) => item.formKey === formKey) || null;
@@ -546,6 +565,10 @@ export async function appHandler(req, res) {
 
     if (req.method === "GET" && pathname === "/") {
       return sendRoot(res);
+    }
+
+    if (req.method === "GET" && (pathname === "/favicon.svg" || pathname === "/favicon.ico")) {
+      return sendFavicon(req, res);
     }
 
     if (req.method === "GET" && pathname === "/health") {
