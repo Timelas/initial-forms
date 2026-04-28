@@ -51,6 +51,15 @@ export function renderAdminPage() {
         font-size: 28px;
         letter-spacing: 0.02em;
       }
+      .brand h1 span {
+        display: block;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 6px;
+      }
       .brand p, .muted {
         color: var(--muted);
       }
@@ -140,6 +149,27 @@ export function renderAdminPage() {
       .section h2, .section h3 {
         margin-top: 0;
       }
+      .section-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 14px;
+      }
+      .section-head h2, .section-head h3 {
+        margin: 0;
+      }
+      .hint {
+        margin: 8px 0 0;
+        line-height: 1.45;
+      }
+      .card-empty {
+        padding: 18px;
+        border: 1px dashed var(--line);
+        border-radius: 14px;
+        color: var(--muted);
+        background: rgba(255, 255, 255, 0.4);
+      }
       pre {
         margin: 0;
         padding: 14px;
@@ -169,8 +199,45 @@ export function renderAdminPage() {
       }
       .field-row {
         display: grid;
-        grid-template-columns: repeat(6, minmax(0, 1fr));
+        gap: 10px;
+        padding: 12px;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.84);
+      }
+      .field-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+      }
+      .field-row label {
+        display: grid;
+        gap: 6px;
+      }
+      .field-flags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+      }
+      .field-flags label {
+        display: inline-flex;
+        align-items: center;
         gap: 8px;
+      }
+      .field-flags input {
+        width: auto;
+      }
+      .field-actions {
+        display: flex;
+        justify-content: flex-end;
+      }
+      .field-actions button {
+        width: auto;
+        min-width: 160px;
+      }
+      .inline-code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        font-size: 12px;
       }
       .tiny {
         font-size: 12px;
@@ -183,8 +250,15 @@ export function renderAdminPage() {
           border-right: 0;
           border-bottom: 1px solid var(--line);
         }
-        .grid-2, .field-row {
+        .section-head {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .grid-2, .field-grid {
           grid-template-columns: 1fr;
+        }
+        .field-actions button {
+          width: 100%;
         }
       }
     </style>
@@ -193,13 +267,13 @@ export function renderAdminPage() {
     <div class="layout">
       <aside class="sidebar">
         <div class="brand">
-          <h1>Forms Admin</h1>
-          <p>Sites, forms, origins and Telegram routing in one place.</p>
+          <h1><span>Панель управления</span>Forms Admin</h1>
+          <p>Сайты, формы и Telegram-маршрутизация в одном месте.</p>
         </div>
         <div class="panel section">
           <div class="row">
-            <button id="newSiteBtn">New Site</button>
-            <button id="refreshBtn" class="secondary">Refresh</button>
+            <button id="newSiteBtn">Новый сайт</button>
+            <button id="refreshBtn" class="secondary">Обновить</button>
           </div>
         </div>
         <div class="site-list" id="siteList"></div>
@@ -208,59 +282,67 @@ export function renderAdminPage() {
         <div id="status" class="status"></div>
         <div class="content-grid">
           <section class="panel section">
-            <h2>Site</h2>
-            <div class="grid-2">
-              <label><span class="tiny">Name</span><input id="siteName" /></label>
+            <div class="section-head">
+              <h2>Сайт</h2>
             </div>
-            <p class="muted tiny">Frontend всегда отправляет формы на backend: <strong>https://initial-forms.ru</strong></p>
-            <label><span class="tiny">Frontend Domains, one per line</span><textarea id="siteDomains"></textarea></label>
+            <div class="grid-2">
+              <label><span class="tiny">Название сайта</span><input id="siteName" placeholder="Например: Karina" /></label>
+            </div>
+            <p class="muted tiny hint">Фронтенд всегда отправляет формы на backend: <strong>https://initial-forms.ru</strong></p>
+            <label><span class="tiny">Домены сайта, по одному на строку</span><textarea id="siteDomains" placeholder="https://site.ru&#10;https://www.site.ru"></textarea></label>
             <div class="row">
-              <button id="saveSiteBtn">Save Site</button>
-              <button id="deleteSiteBtn" class="ghost">Delete Site</button>
+              <button id="saveSiteBtn">Сохранить сайт</button>
+              <button id="deleteSiteBtn" class="ghost">Удалить сайт</button>
             </div>
           </section>
 
           <section class="panel section">
-            <div class="row">
-              <h2 style="flex: 1 1 auto">Forms</h2>
-              <button id="newFormBtn" class="secondary">New Form</button>
+            <div class="section-head">
+              <h2>Формы</h2>
+              <button id="newFormBtn" class="secondary">Новая форма</button>
             </div>
             <div class="form-list" id="formList"></div>
           </section>
 
           <section class="panel section">
-            <h2>Form</h2>
-            <div class="grid-2">
-              <label><span class="tiny">Title</span><input id="formTitle" /></label>
+            <div class="section-head">
+              <h2>Форма</h2>
             </div>
-            <label><span class="tiny">Allowed Origins, one per line</span><textarea id="formOrigins"></textarea></label>
-            <label><span class="tiny">Required Fields, comma separated</span><input id="formRequiredFields" /></label>
             <div class="grid-2">
-              <label><span class="tiny">Telegram tokenEnvKey</span><input id="tokenEnvKey" /></label>
-              <label><span class="tiny">Telegram chatEnvKeys, comma separated</span><input id="chatEnvKeys" /></label>
-              <label><span class="tiny">Anti-spam enabled</span><select id="antiSpamEnabled"><option value="true">true</option><option value="false">false</option></select></label>
-              <label><span class="tiny">Turnstile</span><select id="turnstileEnabled"><option value="false">false</option><option value="true">true</option></select></label>
-              <label><span class="tiny">Honeypot Field</span><input id="honeypotField" value="website" /></label>
-              <label><span class="tiny">Min Fill Time, ms</span><input id="minFillTimeMs" value="1500" /></label>
+              <label><span class="tiny">Название формы</span><input id="formTitle" placeholder="Например: Попап-аудит" /></label>
+            </div>
+            <label><span class="tiny">Разрешенные домены для отправки, по одному на строку</span><textarea id="formOrigins" placeholder="Обычно совпадают с доменами сайта"></textarea></label>
+            <div class="grid-2">
+              <label><span class="tiny">Переменная окружения с токеном Telegram</span><input id="tokenEnvKey" placeholder="TG_DEFAULT_BOT_TOKEN" /></label>
+              <label><span class="tiny">Переменные окружения с chat id, через запятую</span><input id="chatEnvKeys" placeholder="TG_DEFAULT_CHAT_ID" /></label>
+              <label><span class="tiny">Антиспам включен</span><select id="antiSpamEnabled"><option value="true">Да</option><option value="false">Нет</option></select></label>
+              <label><span class="tiny">Использовать Turnstile</span><select id="turnstileEnabled"><option value="false">Нет</option><option value="true">Да</option></select></label>
+              <label><span class="tiny">Скрытое honeypot-поле</span><input id="honeypotField" value="website" /></label>
+              <label><span class="tiny">Минимальное время заполнения, мс</span><input id="minFillTimeMs" value="1500" inputmode="numeric" /></label>
             </div>
             <div class="row">
-              <label><span class="tiny">Rate Limit Window, ms</span><input id="rateWindowMs" value="60000" /></label>
-              <label><span class="tiny">Rate Limit Max</span><input id="rateMax" value="5" /></label>
+              <label><span class="tiny">Окно rate limit, мс</span><input id="rateWindowMs" value="60000" inputmode="numeric" /></label>
+              <label><span class="tiny">Лимит заявок в окне</span><input id="rateMax" value="5" inputmode="numeric" /></label>
             </div>
-            <h3>Fields</h3>
+            <div class="section-head">
+              <h3>Поля формы</h3>
+              <button id="addFieldBtn" class="secondary">Добавить поле</button>
+            </div>
+            <p class="muted tiny hint">Здесь задается, какие поля приходят с фронтенда и как они будут называться в Telegram.</p>
             <div id="fieldTable" class="field-table"></div>
             <div class="row">
-              <button id="addFieldBtn" class="secondary">Add Field</button>
-              <button id="saveFormBtn">Save Form</button>
-              <button id="deleteFormBtn" class="ghost">Delete Form</button>
+              <button id="saveFormBtn">Сохранить форму</button>
+              <button id="deleteFormBtn" class="ghost">Удалить форму</button>
             </div>
           </section>
 
           <section class="panel section">
-            <h2>Frontend Preview</h2>
+            <div class="section-head">
+              <h2>Что передать фронту</h2>
+            </div>
             <div class="row">
-              <button id="copyEndpointBtn" class="secondary">Copy Endpoint</button>
-              <button id="copyJsBtn" class="secondary">Copy JS Example</button>
+              <button id="copyEndpointBtn" class="secondary">Скопировать endpoint</button>
+              <button id="copyJsBtn" class="secondary">Скопировать JS-пример</button>
             </div>
             <pre id="endpointPreview"></pre>
             <pre id="jsPreview"></pre>
@@ -288,7 +370,7 @@ export function renderAdminPage() {
 
       const ids = [
         "siteName","siteDomains",
-        "formTitle","formOrigins","formRequiredFields",
+        "formTitle","formOrigins",
         "tokenEnvKey","chatEnvKeys","antiSpamEnabled","turnstileEnabled","honeypotField","minFillTimeMs","rateWindowMs","rateMax"
       ];
 
@@ -340,7 +422,7 @@ export function renderAdminPage() {
         }
         const data = await response.json();
         if (!response.ok) {
-          throw new Error(data.error || "Request failed");
+          throw new Error(data.error || "Не удалось выполнить запрос.");
         }
         return data;
       }
@@ -387,14 +469,22 @@ export function renderAdminPage() {
 
       function renderSites() {
         els.siteList.innerHTML = "";
+        if (state.sites.length === 0) {
+          els.siteList.innerHTML = "<div class='card-empty'>Сайтов пока нет. Создайте первый сайт.</div>";
+          return;
+        }
         for (const site of state.sites) {
           const node = document.createElement("div");
+          const siteLabel = site.frontendDomains?.[0] || site.siteId;
           node.className = "site-card" + (site.siteId === state.selectedSiteId ? " active" : "");
-          node.innerHTML = "<strong>" + site.name + "</strong><div class='muted tiny'>" + site.siteId + "</div>";
+          node.innerHTML = "<strong>" + site.name + "</strong><div class='muted tiny inline-code'>" + siteLabel + "</div>";
           node.onclick = () => {
             state.selectedSiteId = site.siteId;
+            const siteForms = state.forms.filter((form) => form.siteId === site.siteId);
+            state.selectedFormKey = siteForms[0]?.formKey || null;
             renderSiteEditor();
             renderForms();
+            renderFormEditor();
           };
           els.siteList.appendChild(node);
         }
@@ -404,10 +494,18 @@ export function renderAdminPage() {
         const site = getSelectedSite();
         els.formList.innerHTML = "";
         const forms = site ? state.forms.filter((form) => form.siteId === site.siteId) : [];
+        if (!site) {
+          els.formList.innerHTML = "<div class='card-empty'>Сначала выберите или создайте сайт.</div>";
+          return;
+        }
+        if (forms.length === 0) {
+          els.formList.innerHTML = "<div class='card-empty'>У этого сайта пока нет форм.</div>";
+          return;
+        }
         for (const form of forms) {
           const node = document.createElement("div");
           node.className = "form-card" + (form.formKey === state.selectedFormKey ? " active" : "");
-          node.innerHTML = "<strong>" + form.title + "</strong><div class='muted tiny'>" + form.formKey + "</div>";
+          node.innerHTML = "<strong>" + form.title + "</strong><div class='muted tiny inline-code'>" + form.formKey + "</div>";
           node.onclick = () => {
             state.selectedFormKey = form.formKey;
             renderFormEditor();
@@ -432,28 +530,66 @@ export function renderAdminPage() {
         const row = document.createElement("div");
         row.className = "field-row";
         row.innerHTML = [
-          "<input placeholder='name' data-key='name' value='" + (field.name || "") + "'>",
-          "<input placeholder='label' data-key='label' value='" + (field.label || "") + "'>",
-          "<input placeholder='aliases csv' data-key='aliases' value='" + ((field.aliases || []).join(", ")) + "'>",
-          "<input placeholder='type' data-key='type' value='" + (field.type || "text") + "'>",
-          "<input placeholder='map' data-key='map' value='" + (field.map || field.name || "") + "'>",
-          "<input placeholder='required true/false, omit true/false' data-key='flags' value='" + [field.required ? "required" : "", field.omit ? "omit" : ""].filter(Boolean).join(", ") + "'>"
+          "<div class='field-grid'>",
+          "<label><span class='tiny'>Техническое имя поля</span><input placeholder='name' data-key='name' value='" + escapeAttr(field.name || "") + "'></label>",
+          "<label><span class='tiny'>Название в Telegram</span><input placeholder='Имя' data-key='label' value='" + escapeAttr(field.label || "") + "'></label>",
+          "<label><span class='tiny'>Доп. имена с фронта, через запятую</span><input placeholder='f-name, user_name' data-key='aliases' value='" + escapeAttr((field.aliases || []).join(", ")) + "'></label>",
+          "<label><span class='tiny'>Тип поля</span><select data-key='type'>" + renderFieldTypeOptions(field.type || "text") + "</select></label>",
+          "</div>",
+          "<div class='field-flags'>",
+          "<label><input type='checkbox' data-key='required'" + (field.required ? " checked" : "") + ">Обязательное поле</label>",
+          "<label><input type='checkbox' data-key='omit'" + (field.omit ? " checked" : "") + ">Не отправлять в Telegram</label>",
+          "</div>",
+          "<div class='field-actions'><button type='button' class='ghost' data-action='remove-field'>Удалить поле</button></div>"
         ].join("");
+        row.querySelector("[data-action='remove-field']").onclick = () => {
+          row.remove();
+          renderPreview();
+        };
+        row.querySelectorAll("input, select").forEach((input) => {
+          input.addEventListener("input", renderPreview);
+          input.addEventListener("change", renderPreview);
+        });
         return row;
+      }
+
+      function escapeAttr(value) {
+        return String(value)
+          .replaceAll("&", "&amp;")
+          .replaceAll("\"", "&quot;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;");
+      }
+
+      function renderFieldTypeOptions(selectedType) {
+        return [
+          ["text", "Текст"],
+          ["tel", "Телефон"],
+          ["email", "Email"],
+          ["textarea", "Большой текст"],
+          ["checkbox", "Чекбокс"]
+        ].map(([value, label]) => {
+          const selected = value === selectedType ? " selected" : "";
+          return "<option value='" + value + "'" + selected + ">" + label + "</option>";
+        }).join("");
       }
 
       function parseFieldRows() {
         return [...document.querySelectorAll(".field-row")].map((row) => {
-          const values = Object.fromEntries([...row.querySelectorAll("input")].map((input) => [input.dataset.key, input.value.trim()]));
-          const flags = csv(values.flags);
+          const values = Object.fromEntries(
+            [...row.querySelectorAll("input, select")].map((input) => {
+              const value = input.type === "checkbox" ? input.checked : input.value.trim();
+              return [input.dataset.key, value];
+            })
+          );
           return {
             name: values.name,
             label: values.label || values.name,
             aliases: csv(values.aliases),
             type: values.type || "text",
-            required: flags.includes("required"),
-            omit: flags.includes("omit"),
-            map: values.map || values.name
+            required: Boolean(values.required),
+            omit: Boolean(values.omit),
+            map: values.name
           };
         }).filter((field) => field.name);
       }
@@ -462,7 +598,6 @@ export function renderAdminPage() {
         const form = getSelectedForm();
         formInputs.formTitle.value = form?.title || "";
         formInputs.formOrigins.value = (form?.allowedOrigins || []).join("\\n");
-        formInputs.formRequiredFields.value = (form?.requiredFields || []).join(", ");
         formInputs.tokenEnvKey.value = form?.telegramConfig?.tokenEnvKey || "";
         formInputs.chatEnvKeys.value = (form?.telegramConfig?.chatEnvKeys || []).join(", ");
         formInputs.antiSpamEnabled.value = String(form?.antiSpamConfig?.enabled ?? true);
@@ -485,7 +620,9 @@ export function renderAdminPage() {
         );
         const formKey = currentForm?.formKey || generatedFormKey;
         const endpoint = site && formKey ? BACKEND_BASE_URL + "/api/forms/" + formKey : "";
-        els.endpointPreview.textContent = endpoint || "Select a site and form";
+        els.endpointPreview.textContent = endpoint || "Выберите сайт и форму";
+        const firstRequiredField = parseFieldRows().find((field) => field.required)?.name || "name";
+        const secondField = parseFieldRows().find((field) => field.name !== firstRequiredField)?.name || "contact";
         els.jsPreview.textContent = endpoint ? [
           "fetch(\\"" + endpoint + "\\", {",
           "  method: \\"POST\\",",
@@ -494,9 +631,14 @@ export function renderAdminPage() {
           "    \\"Content-Type\\": \\"application/json\\",",
           "    \\"X-Requested-With\\": \\"XMLHttpRequest\\"",
           "  },",
-          "  body: JSON.stringify({ name: \\"Ivan\\", contact: \\"+79990000000\\", consent: \\"on\\" })",
+          "  body: JSON.stringify({",
+          "    " + firstRequiredField + ": \\"Иван\\",",
+          "    " + secondField + ": \\"+79990000000\\",",
+          "    submittedAt: Date.now() - 3000,",
+          "    website: \\"\\"",
+          "  })",
           "}).then((r) => r.json()).then(console.log);"
-        ].join("\\n") : "Select a site and form";
+        ].join("\\n") : "Сохраните форму, чтобы получить готовый пример.";
       }
 
       async function loadData() {
@@ -521,18 +663,26 @@ export function renderAdminPage() {
       }
 
       async function saveSite() {
+        const siteName = formInputs.siteName.value.trim();
+        const siteDomains = lines(formInputs.siteDomains.value);
+        if (!siteName) {
+          throw new Error("Укажите название сайта.");
+        }
+        if (siteDomains.length === 0) {
+          throw new Error("Добавьте хотя бы один домен сайта.");
+        }
         const currentSite = getSelectedSite();
         const generatedSiteId = uniqueSlug(
-          slugify(formInputs.siteName.value),
+          slugify(siteName),
           state.sites.map((site) => site.siteId),
           currentSite?.siteId || ""
         );
         const payload = {
           siteId: currentSite?.siteId || generatedSiteId,
-          name: formInputs.siteName.value.trim(),
+          name: siteName,
           status: "active",
           apiBaseUrl: BACKEND_BASE_URL,
-          frontendDomains: lines(formInputs.siteDomains.value)
+          frontendDomains: siteDomains
         };
         const exists = state.sites.some((site) => site.siteId === payload.siteId);
         const path = exists ? "/api/admin/sites/" + encodeURIComponent(payload.siteId) : "/api/admin/sites";
@@ -544,37 +694,47 @@ export function renderAdminPage() {
         });
         state.selectedSiteId = payload.siteId;
         await loadData();
-        showStatus("Site saved");
+        showStatus("Сайт сохранен.");
       }
 
       async function deleteSite() {
         const site = getSelectedSite();
         if (!site) return;
+        if (!window.confirm("Удалить сайт и все его формы?")) {
+          return;
+        }
         await api("/api/admin/sites/" + encodeURIComponent(site.siteId), { method: "DELETE" });
         state.selectedSiteId = null;
         state.selectedFormKey = null;
         await loadData();
-        showStatus("Site deleted");
+        showStatus("Сайт удален.");
       }
 
       async function saveForm() {
         const site = getSelectedSite();
-        if (!site) throw new Error("Select a site first");
+        if (!site) throw new Error("Сначала выберите сайт.");
         const currentForm = getSelectedForm();
         const fields = parseFieldRows();
+        const formTitle = formInputs.formTitle.value.trim();
+        if (!formTitle) {
+          throw new Error("Укажите название формы.");
+        }
+        if (fields.length === 0) {
+          throw new Error("Добавьте хотя бы одно поле формы.");
+        }
         const generatedFormKey = uniqueSlug(
-          slugify(formInputs.formTitle.value),
+          slugify(formTitle),
           state.forms.filter((form) => form.siteId === site.siteId).map((form) => form.formKey),
           currentForm?.formKey || ""
         );
         const payload = {
           formKey: currentForm?.formKey || generatedFormKey,
           siteId: site.siteId,
-          title: formInputs.formTitle.value.trim(),
-          allowedOrigins: lines(formInputs.formOrigins.value),
+          title: formTitle,
+          allowedOrigins: lines(formInputs.formOrigins.value).length > 0 ? lines(formInputs.formOrigins.value) : site.frontendDomains,
           aliases: Object.fromEntries(fields.map((field) => [field.name, field.aliases])),
           fields,
-          requiredFields: csv(formInputs.formRequiredFields.value),
+          requiredFields: fields.filter((field) => field.required).map((field) => field.map || field.name),
           acceptedContentTypes: defaultContentTypes,
           telegramConfig: {
             tokenEnvKey: formInputs.tokenEnvKey.value.trim(),
@@ -602,28 +762,39 @@ export function renderAdminPage() {
         });
         state.selectedFormKey = payload.formKey;
         await loadData();
-        showStatus("Form saved");
+        showStatus("Форма сохранена.");
       }
 
       async function deleteForm() {
         const form = getSelectedForm();
         if (!form) return;
+        if (!window.confirm("Удалить эту форму?")) {
+          return;
+        }
         await api("/api/admin/forms/" + encodeURIComponent(form.formKey), { method: "DELETE" });
         state.selectedFormKey = null;
         await loadData();
-        showStatus("Form deleted");
+        showStatus("Форма удалена.");
       }
 
       document.getElementById("refreshBtn").onclick = loadData;
       document.getElementById("newSiteBtn").onclick = () => {
         state.selectedSiteId = null;
+        state.selectedFormKey = null;
         renderSiteEditor();
+        renderForms();
+        renderFormEditor();
         showStatus("Новый сайт. Заполните поля и сохраните.");
       };
       document.getElementById("newFormBtn").onclick = () => {
+        if (!getSelectedSite()) {
+          showStatus("Сначала создайте или выберите сайт.", true);
+          return;
+        }
         state.selectedFormKey = null;
         renderFormEditor();
         renderFieldRows([]);
+        formInputs.formOrigins.value = (getSelectedSite()?.frontendDomains || []).join("\\n");
         showStatus("Новая форма. Заполните поля и сохраните.");
       };
       document.getElementById("saveSiteBtn").onclick = () => runWithButton(

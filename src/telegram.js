@@ -9,6 +9,63 @@ function escapeHtml(value) {
     .replaceAll(">", "&gt;");
 }
 
+function normalizeSiteDomain(site, form) {
+  const domain = site?.frontendDomains?.[0] || form?.allowedOrigins?.[0] || site?.name || form?.siteId || "";
+  return String(domain).replace(/^https?:\/\//, "").replace(/\/$/, "");
+}
+
+function normalizeLabel(fieldKey, fieldConfig) {
+  return fieldConfig?.label || fieldConfig?.name || fieldKey;
+}
+
+function normalizeFieldValue(fieldConfig, value) {
+  if (value === null || value === undefined || value === "") {
+    return "";
+  }
+
+  if (fieldConfig?.type === "checkbox") {
+    return ["on", "true", "1", "yes", "да"].includes(String(value).toLowerCase()) ? "Да" : "Нет";
+  }
+
+  return String(value);
+}
+
+function buildTelegramLines(form, fields) {
+  const configuredFields = Array.isArray(form?.fields) ? form.fields : [];
+  const lines = [];
+  const usedKeys = new Set();
+
+  for (const fieldConfig of configuredFields) {
+    const key = fieldConfig.map || fieldConfig.name;
+    if (!key || !Object.prototype.hasOwnProperty.call(fields, key)) {
+      continue;
+    }
+
+    const value = normalizeFieldValue(fieldConfig, fields[key]);
+    if (!value) {
+      continue;
+    }
+
+    usedKeys.add(key);
+    lines.push(`<b>${escapeHtml(normalizeLabel(key, fieldConfig))}</b>: ${escapeHtml(value)}`);
+  }
+
+  for (const [key, rawValue] of Object.entries(fields)) {
+    if (usedKeys.has(key)) {
+      continue;
+    }
+
+    const value = normalizeFieldValue(null, rawValue);
+    if (!value) {
+      continue;
+    }
+
+    lines.push(`<b>${escapeHtml(key)}</b>: ${escapeHtml(value)}`);
+  }
+
+  return lines;
+}
+
 export async function sendToTelegram(form, site, fields) {
   const { telegramConfig = {} } = form;
   const token = process.env[telegramConfig.tokenEnvKey];
@@ -27,14 +84,12 @@ export async function sendToTelegram(form, site, fields) {
   }
 
   const header = [
-    `<b>${escapeHtml(form.title || form.formKey)}</b>`,
-    `Site: ${escapeHtml(site?.name || form.siteId)}`,
-    `Form key: ${escapeHtml(form.formKey)}`
+    `<b>Новая заявка</b>`,
+    `<b>Форма</b>: ${escapeHtml(form.title || form.formKey)}`,
+    `<b>Сайт</b>: ${escapeHtml(normalizeSiteDomain(site, form))}`
   ];
 
-  const body = Object.entries(fields).map(([key, value]) => {
-    return `<b>${escapeHtml(key)}</b>: ${escapeHtml(value)}`;
-  });
+  const body = buildTelegramLines(form, fields);
 
   const text = [...header, "", ...body].join("\n");
 

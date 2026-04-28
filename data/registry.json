@@ -1,86 +1,2027 @@
 {
   "sites": [
     {
+      "siteId": "rent",
+      "name": "Rent",
+      "frontendDomains": [
+        "https://krasnovrielt.ru",
+        "https://www.krasnovrielt.ru"
+      ],
+      "apiBaseUrl": "https://initial-forms.ru",
+      "status": "active"
+    },
+    {
+      "siteId": "masterklass",
+      "name": "Мастеркласс",
+      "frontendDomains": [
+        "https://мастеркласс.москва",
+        "https://www.мастеркласс.москва",
+        "https://xn--80aaoufc4agfae.xn--80adxhks",
+        "https://www.xn--80aaoufc4agfae.xn--80adxhks"
+      ],
+      "apiBaseUrl": "https://initial-forms.ru",
+      "status": "active"
+    },
+    {
+      "siteId": "satrapezo",
+      "name": "Satrapezo",
+      "frontendDomains": [
+        "https://satrapezo.ru",
+        "https://www.satrapezo.ru",
+        "https://cn04904-wordpress-70uqc.tw1.ru"
+      ],
+      "apiBaseUrl": "https://initial-forms.ru",
+      "status": "active"
+    },
+    {
+      "siteId": "gidrobro",
+      "name": "Гидробро",
+      "frontendDomains": [
+        "https://гидробро.рф",
+        "https://www.гидробро.рф",
+        "https://xn--90addp5ablc.xn--p1ai",
+        "https://www.xn--90addp5ablc.xn--p1ai"
+      ],
+      "apiBaseUrl": "https://initial-forms.ru",
+      "status": "active"
+    },
+    {
+      "siteId": "znakinow",
+      "name": "Znakinow",
+      "frontendDomains": [
+        "https://znakinow.ru",
+        "https://www.znakinow.ru"
+      ],
+      "apiBaseUrl": "https://initial-forms.ru",
+      "status": "active"
+    },
+    {
+      "siteId": "mcas77",
+      "name": "MCAS77",
+      "frontendDomains": [
+        "https://mcas77.ru",
+        "https://www.mcas77.ru"
+      ],
+      "apiBaseUrl": "https://initial-forms.ru",
+      "status": "active"
+    },
+    {
+      "siteId": "kitchen",
+      "name": "Kitchen",
+      "frontendDomains": [
+        "https://delaem-kuni.ru",
+        "https://www.delaem-kuni.ru"
+      ],
+      "apiBaseUrl": "https://initial-forms.ru",
+      "status": "active"
+    },
+    {
+      "siteId": "electric",
+      "name": "Electric",
+      "frontendDomains": [
+        "https://atlantsales.shop",
+        "https://www.atlantsales.shop"
+      ],
+      "apiBaseUrl": "https://initial-forms.ru",
+      "status": "active"
+    },
+    {
+      "siteId": "vrednet",
+      "name": "Vrednet",
+      "frontendDomains": [
+        "https://vrednet.msk.ru",
+        "https://www.vrednet.msk.ru"
+      ],
+      "apiBaseUrl": "https://initial-forms.ru",
+      "status": "active"
+    },
+    {
+      "siteId": "oneart",
+      "name": "Oneart",
+      "frontendDomains": [
+        "https://oneartstudio.ru",
+        "https://www.oneartstudio.ru"
+      ],
+      "apiBaseUrl": "https://initial-forms.ru",
+      "status": "active"
+    },
+    {
       "siteId": "karina",
       "name": "Karina",
       "frontendDomains": [
         "https://zheglova-karina.ru",
         "https://www.zheglova-karina.ru"
       ],
-      "apiBaseUrl": "https://forms.company-domain.ru",
-      "status": "active",
-      "notes": "Seed example for migration"
+      "apiBaseUrl": "https://initial-forms.ru",
+      "status": "active"
     }
   ],
   "forms": [
     {
-      "formKey": "karina_audit_form",
-      "siteId": "karina",
-      "title": "Audit Form",
+      "formKey": "rent_popup_form",
+      "siteId": "rent",
+      "title": "Попап",
       "allowedOrigins": [
-        "https://zheglova-karina.ru",
-        "https://www.zheglova-karina.ru"
+        "https://krasnovrielt.ru",
+        "https://www.krasnovrielt.ru"
       ],
       "aliases": {
-        "name": [
-          "f-name"
-        ],
-        "contact": [
-          "f-contact"
-        ],
-        "consent": [
-          "f-consent"
-        ]
+        "name": [],
+        "phone": [],
+        "property_type": [],
+        "comment": []
       },
       "fields": [
         {
           "name": "name",
-          "label": "Name",
-          "aliases": [
-            "f-name"
-          ],
+          "label": "Имя",
+          "aliases": [],
           "type": "text",
-          "required": true,
+          "required": false,
           "omit": false,
           "map": "name"
         },
         {
-          "name": "contact",
-          "label": "Contact",
-          "aliases": [
-            "f-contact"
-          ],
-          "type": "text",
-          "required": true,
+          "name": "phone",
+          "label": "Телефон",
+          "aliases": [],
+          "type": "tel",
+          "required": false,
           "omit": false,
-          "map": "contact"
+          "map": "phone"
         },
         {
-          "name": "consent",
-          "label": "Consent",
-          "aliases": [
-            "f-consent"
-          ],
-          "type": "checkbox",
-          "required": true,
+          "name": "property_type",
+          "label": "Тип недвижимости",
+          "aliases": [],
+          "type": "text",
+          "required": false,
           "omit": false,
-          "map": "consent"
+          "map": "property_type"
+        },
+        {
+          "name": "comment",
+          "label": "Комментарий",
+          "aliases": [],
+          "type": "textarea",
+          "required": false,
+          "omit": false,
+          "map": "comment"
         }
       ],
-      "requiredFields": [
-        "name",
-        "contact",
-        "consent"
-      ],
+      "requiredFields": [],
       "acceptedContentTypes": [
         "application/json",
         "application/x-www-form-urlencoded",
         "multipart/form-data"
       ],
       "telegramConfig": {
-        "tokenEnvKey": "TG_DEFAULT_BOT_TOKEN",
+        "tokenEnvKey": "RENT_TOKEN",
         "chatEnvKeys": [
-          "TG_DEFAULT_CHAT_ID"
+          "RENT_CHAT"
+        ]
+      },
+      "antiSpamConfig": {
+        "enabled": true,
+        "turnstile": false,
+        "honeypotField": "website",
+        "minFillTimeMs": 1500,
+        "rateLimit": {
+          "windowMs": 60000,
+          "max": 5
+        }
+      },
+      "enabled": true
+    },
+    {
+      "formKey": "rent_catalog_form",
+      "siteId": "rent",
+      "title": "Каталог",
+      "allowedOrigins": [
+        "https://krasnovrielt.ru",
+        "https://www.krasnovrielt.ru"
+      ],
+      "aliases": {
+        "name": [],
+        "phone": []
+      },
+      "fields": [
+        {
+          "name": "name",
+          "label": "Имя",
+          "aliases": [],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "name"
+        },
+        {
+          "name": "phone",
+          "label": "Телефон",
+          "aliases": [],
+          "type": "tel",
+          "required": false,
+          "omit": false,
+          "map": "phone"
+        }
+      ],
+      "requiredFields": [],
+      "acceptedContentTypes": [
+        "application/json",
+        "application/x-www-form-urlencoded",
+        "multipart/form-data"
+      ],
+      "telegramConfig": {
+        "tokenEnvKey": "RENT_TOKEN",
+        "chatEnvKeys": [
+          "RENT_CHAT"
+        ]
+      },
+      "antiSpamConfig": {
+        "enabled": true,
+        "turnstile": false,
+        "honeypotField": "website",
+        "minFillTimeMs": 1500,
+        "rateLimit": {
+          "windowMs": 60000,
+          "max": 5
+        }
+      },
+      "enabled": true
+    },
+    {
+      "formKey": "rent_realtor_services_form",
+      "siteId": "rent",
+      "title": "Услуги риэлтора",
+      "allowedOrigins": [
+        "https://krasnovrielt.ru",
+        "https://www.krasnovrielt.ru"
+      ],
+      "aliases": {
+        "name": [],
+        "phone": [],
+        "property_type": [],
+        "city": [],
+        "budget": []
+      },
+      "fields": [
+        {
+          "name": "name",
+          "label": "Имя",
+          "aliases": [],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "name"
+        },
+        {
+          "name": "phone",
+          "label": "Телефон",
+          "aliases": [],
+          "type": "tel",
+          "required": false,
+          "omit": false,
+          "map": "phone"
+        },
+        {
+          "name": "property_type",
+          "label": "Тип недвижимости",
+          "aliases": [],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "property_type"
+        },
+        {
+          "name": "city",
+          "label": "Город",
+          "aliases": [],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "city"
+        },
+        {
+          "name": "budget",
+          "label": "Бюджет",
+          "aliases": [],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "budget"
+        }
+      ],
+      "requiredFields": [],
+      "acceptedContentTypes": [
+        "application/json",
+        "application/x-www-form-urlencoded",
+        "multipart/form-data"
+      ],
+      "telegramConfig": {
+        "tokenEnvKey": "RENT_TOKEN",
+        "chatEnvKeys": [
+          "RENT_CHAT"
+        ]
+      },
+      "antiSpamConfig": {
+        "enabled": true,
+        "turnstile": false,
+        "honeypotField": "website",
+        "minFillTimeMs": 1500,
+        "rateLimit": {
+          "windowMs": 60000,
+          "max": 5
+        }
+      },
+      "enabled": true
+    },
+    {
+      "formKey": "rent_property_request_form",
+      "siteId": "rent",
+      "title": "Заявка на подбор",
+      "allowedOrigins": [
+        "https://krasnovrielt.ru",
+        "https://www.krasnovrielt.ru"
+      ],
+      "aliases": {
+        "name": [],
+        "phone": [],
+        "property_type": [],
+        "city": [],
+        "budget": []
+      },
+      "fields": [
+        {
+          "name": "name",
+          "label": "Имя",
+          "aliases": [],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "name"
+        },
+        {
+          "name": "phone",
+          "label": "Телефон",
+          "aliases": [],
+          "type": "tel",
+          "required": false,
+          "omit": false,
+          "map": "phone"
+        },
+        {
+          "name": "property_type",
+          "label": "Тип недвижимости",
+          "aliases": [],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "property_type"
+        },
+        {
+          "name": "city",
+          "label": "Город",
+          "aliases": [],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "city"
+        },
+        {
+          "name": "budget",
+          "label": "Бюджет",
+          "aliases": [],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "budget"
+        }
+      ],
+      "requiredFields": [],
+      "acceptedContentTypes": [
+        "application/json",
+        "application/x-www-form-urlencoded",
+        "multipart/form-data"
+      ],
+      "telegramConfig": {
+        "tokenEnvKey": "RENT_TOKEN",
+        "chatEnvKeys": [
+          "RENT_CHAT"
+        ]
+      },
+      "antiSpamConfig": {
+        "enabled": true,
+        "turnstile": false,
+        "honeypotField": "website",
+        "minFillTimeMs": 1500,
+        "rateLimit": {
+          "windowMs": 60000,
+          "max": 5
+        }
+      },
+      "enabled": true
+    },
+    {
+      "formKey": "masterklass_request_form",
+      "siteId": "masterklass",
+      "title": "Заявка",
+      "allowedOrigins": [
+        "https://мастеркласс.москва",
+        "https://www.мастеркласс.москва",
+        "https://xn--80aaoufc4agfae.xn--80adxhks",
+        "https://www.xn--80aaoufc4agfae.xn--80adxhks"
+      ],
+      "aliases": {
+        "name": [],
+        "phone": [],
+        "class": [
+          "masterClass",
+          "master_class",
+          "masterclass",
+          "workshop"
+        ],
+        "guests": [
+          "people",
+          "persons",
+          "count"
+        ]
+      },
+      "fields": [
+        {
+          "name": "name",
+          "label": "Ваше имя",
+          "aliases": [],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "name"
+        },
+        {
+          "name": "phone",
+          "label": "Телефон",
+          "aliases": [],
+          "type": "tel",
+          "required": false,
+          "omit": false,
+          "map": "phone"
+        },
+        {
+          "name": "class",
+          "label": "Выберите мастер-класс",
+          "aliases": [
+            "masterClass",
+            "master_class",
+            "masterclass",
+            "workshop"
+          ],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "class"
+        },
+        {
+          "name": "guests",
+          "label": "Количество человек",
+          "aliases": [
+            "people",
+            "persons",
+            "count"
+          ],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "guests"
+        }
+      ],
+      "requiredFields": [],
+      "acceptedContentTypes": [
+        "application/json",
+        "application/x-www-form-urlencoded",
+        "multipart/form-data"
+      ],
+      "telegramConfig": {
+        "tokenEnvKey": "BAKERY_TOKEN",
+        "chatEnvKeys": [
+          "BAKERY_CHAT"
+        ]
+      },
+      "antiSpamConfig": {
+        "enabled": true,
+        "turnstile": false,
+        "honeypotField": "website",
+        "minFillTimeMs": 1500,
+        "rateLimit": {
+          "windowMs": 60000,
+          "max": 5
+        }
+      },
+      "enabled": true
+    },
+    {
+      "formKey": "satrapezo_booking_form",
+      "siteId": "satrapezo",
+      "title": "Бронирование",
+      "allowedOrigins": [
+        "https://satrapezo.ru",
+        "https://www.satrapezo.ru",
+        "https://cn04904-wordpress-70uqc.tw1.ru"
+      ],
+      "aliases": {
+        "intent": [],
+        "name": [],
+        "phone": [],
+        "wishes": [],
+        "agree": [],
+        "hallId": [],
+        "hallName": []
+      },
+      "fields": [
+        {
+          "name": "intent",
+          "label": "Тип брони",
+          "aliases": [],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "intent"
+        },
+        {
+          "name": "name",
+          "label": "Имя",
+          "aliases": [],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "name"
+        },
+        {
+          "name": "phone",
+          "label": "Телефон",
+          "aliases": [],
+          "type": "tel",
+          "required": false,
+          "omit": false,
+          "map": "phone"
+        },
+        {
+          "name": "wishes",
+          "label": "Пожелания",
+          "aliases": [],
+          "type": "textarea",
+          "required": false,
+          "omit": false,
+          "map": "wishes"
+        },
+        {
+          "name": "agree",
+          "label": "Согласие",
+          "aliases": [],
+          "type": "checkbox",
+          "required": false,
+          "omit": false,
+          "map": "agree"
+        },
+        {
+          "name": "hallId",
+          "label": "ID зала",
+          "aliases": [],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "hallId"
+        },
+        {
+          "name": "hallName",
+          "label": "Зал",
+          "aliases": [],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "hallName"
+        }
+      ],
+      "requiredFields": [],
+      "acceptedContentTypes": [
+        "application/json",
+        "application/x-www-form-urlencoded",
+        "multipart/form-data"
+      ],
+      "telegramConfig": {
+        "tokenEnvKey": "SATR_TOKEN",
+        "chatEnvKeys": [
+          "SATR_CHAT"
+        ]
+      },
+      "antiSpamConfig": {
+        "enabled": true,
+        "turnstile": false,
+        "honeypotField": "website",
+        "minFillTimeMs": 1500,
+        "rateLimit": {
+          "windowMs": 60000,
+          "max": 5
+        }
+      },
+      "enabled": true
+    },
+    {
+      "formKey": "satrapezo_banquet_calc_form",
+      "siteId": "satrapezo",
+      "title": "Рассчитать банкет",
+      "allowedOrigins": [
+        "https://satrapezo.ru",
+        "https://www.satrapezo.ru",
+        "https://cn04904-wordpress-70uqc.tw1.ru"
+      ],
+      "aliases": {
+        "name": [],
+        "phone": [],
+        "date": [],
+        "guests": [],
+        "event": [],
+        "agree": []
+      },
+      "fields": [
+        {
+          "name": "name",
+          "label": "Имя",
+          "aliases": [],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "name"
+        },
+        {
+          "name": "phone",
+          "label": "Телефон",
+          "aliases": [],
+          "type": "tel",
+          "required": false,
+          "omit": false,
+          "map": "phone"
+        },
+        {
+          "name": "date",
+          "label": "Дата мероприятия",
+          "aliases": [],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "date"
+        },
+        {
+          "name": "guests",
+          "label": "Количество гостей",
+          "aliases": [],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "guests"
+        },
+        {
+          "name": "event",
+          "label": "Событие",
+          "aliases": [],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "event"
+        },
+        {
+          "name": "agree",
+          "label": "Согласие",
+          "aliases": [],
+          "type": "checkbox",
+          "required": false,
+          "omit": false,
+          "map": "agree"
+        }
+      ],
+      "requiredFields": [],
+      "acceptedContentTypes": [
+        "application/json",
+        "application/x-www-form-urlencoded",
+        "multipart/form-data"
+      ],
+      "telegramConfig": {
+        "tokenEnvKey": "SATR_TOKEN",
+        "chatEnvKeys": [
+          "SATR_CHAT"
+        ]
+      },
+      "antiSpamConfig": {
+        "enabled": true,
+        "turnstile": false,
+        "honeypotField": "website",
+        "minFillTimeMs": 1500,
+        "rateLimit": {
+          "windowMs": 60000,
+          "max": 5
+        }
+      },
+      "enabled": true
+    },
+    {
+      "formKey": "gidrobro_pool_calculation_form",
+      "siteId": "gidrobro",
+      "title": "Расчёт бассейна",
+      "allowedOrigins": [
+        "https://гидробро.рф",
+        "https://www.гидробро.рф",
+        "https://xn--90addp5ablc.xn--p1ai",
+        "https://www.xn--90addp5ablc.xn--p1ai"
+      ],
+      "aliases": {
+        "length": [],
+        "width": [],
+        "depth": [],
+        "poolType": [],
+        "finish": [],
+        "embedded": [],
+        "attractions": [],
+        "name": [],
+        "phone": [],
+        "contactMethod": [],
+        "needHelp": [],
+        "consent": []
+      },
+      "fields": [
+        {
+          "name": "length",
+          "label": "Длина, м",
+          "aliases": [],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "length"
+        },
+        {
+          "name": "width",
+          "label": "Ширина, м",
+          "aliases": [],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "width"
+        },
+        {
+          "name": "depth",
+          "label": "Глубина, м",
+          "aliases": [],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "depth"
+        },
+        {
+          "name": "poolType",
+          "label": "Тип бассейна",
+          "aliases": [],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "poolType"
+        },
+        {
+          "name": "finish",
+          "label": "Отделка",
+          "aliases": [],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "finish"
+        },
+        {
+          "name": "embedded",
+          "label": "Закладные элементы",
+          "aliases": [],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "embedded"
+        },
+        {
+          "name": "attractions",
+          "label": "Аттракционы",
+          "aliases": [],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "attractions"
+        },
+        {
+          "name": "name",
+          "label": "Имя",
+          "aliases": [],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "name"
+        },
+        {
+          "name": "phone",
+          "label": "Телефон",
+          "aliases": [],
+          "type": "tel",
+          "required": false,
+          "omit": false,
+          "map": "phone"
+        },
+        {
+          "name": "contactMethod",
+          "label": "Способ связи",
+          "aliases": [],
+          "type": "tel",
+          "required": false,
+          "omit": false,
+          "map": "contactMethod"
+        },
+        {
+          "name": "needHelp",
+          "label": "Нужна помощь специалиста",
+          "aliases": [],
+          "type": "checkbox",
+          "required": false,
+          "omit": false,
+          "map": "needHelp"
+        },
+        {
+          "name": "consent",
+          "label": "Согласие на обработку данных",
+          "aliases": [],
+          "type": "checkbox",
+          "required": false,
+          "omit": false,
+          "map": "consent"
+        }
+      ],
+      "requiredFields": [],
+      "acceptedContentTypes": [
+        "application/json",
+        "application/x-www-form-urlencoded",
+        "multipart/form-data"
+      ],
+      "telegramConfig": {
+        "tokenEnvKey": "HYDRO_TOKEN",
+        "chatEnvKeys": [
+          "HYDRO_CHAT"
+        ]
+      },
+      "antiSpamConfig": {
+        "enabled": true,
+        "turnstile": false,
+        "honeypotField": "website",
+        "minFillTimeMs": 1500,
+        "rateLimit": {
+          "windowMs": 60000,
+          "max": 5
+        }
+      },
+      "enabled": true
+    },
+    {
+      "formKey": "znakinow_request_form",
+      "siteId": "znakinow",
+      "title": "Запрос",
+      "allowedOrigins": [
+        "https://znakinow.ru",
+        "https://www.znakinow.ru"
+      ],
+      "aliases": {
+        "name": [],
+        "phone": []
+      },
+      "fields": [
+        {
+          "name": "name",
+          "label": "Имя",
+          "aliases": [],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "name"
+        },
+        {
+          "name": "phone",
+          "label": "Телефон",
+          "aliases": [],
+          "type": "tel",
+          "required": false,
+          "omit": false,
+          "map": "phone"
+        }
+      ],
+      "requiredFields": [],
+      "acceptedContentTypes": [
+        "application/json",
+        "application/x-www-form-urlencoded",
+        "multipart/form-data"
+      ],
+      "telegramConfig": {
+        "tokenEnvKey": "REGISTR_TOKEN",
+        "chatEnvKeys": [
+          "REGISTR_CHAT"
+        ]
+      },
+      "antiSpamConfig": {
+        "enabled": true,
+        "turnstile": false,
+        "honeypotField": "website",
+        "minFillTimeMs": 1500,
+        "rateLimit": {
+          "windowMs": 60000,
+          "max": 5
+        }
+      },
+      "enabled": true
+    },
+    {
+      "formKey": "mcas77_hero_form",
+      "siteId": "mcas77",
+      "title": "Hero заявка",
+      "allowedOrigins": [
+        "https://mcas77.ru",
+        "https://www.mcas77.ru"
+      ],
+      "aliases": {
+        "name": [],
+        "phone": [],
+        "direction": []
+      },
+      "fields": [
+        {
+          "name": "name",
+          "label": "Имя",
+          "aliases": [],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "name"
+        },
+        {
+          "name": "phone",
+          "label": "Телефон",
+          "aliases": [],
+          "type": "tel",
+          "required": false,
+          "omit": false,
+          "map": "phone"
+        },
+        {
+          "name": "direction",
+          "label": "Направление",
+          "aliases": [],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "direction"
+        }
+      ],
+      "requiredFields": [],
+      "acceptedContentTypes": [
+        "application/json",
+        "application/x-www-form-urlencoded",
+        "multipart/form-data"
+      ],
+      "telegramConfig": {
+        "tokenEnvKey": "MCAS77_TOKEN",
+        "chatEnvKeys": [
+          "MCAS77_CHAT"
+        ]
+      },
+      "antiSpamConfig": {
+        "enabled": true,
+        "turnstile": false,
+        "honeypotField": "website",
+        "minFillTimeMs": 1500,
+        "rateLimit": {
+          "windowMs": 60000,
+          "max": 5
+        }
+      },
+      "enabled": true
+    },
+    {
+      "formKey": "mcas77_contact_form",
+      "siteId": "mcas77",
+      "title": "Contact заявка",
+      "allowedOrigins": [
+        "https://mcas77.ru",
+        "https://www.mcas77.ru"
+      ],
+      "aliases": {
+        "name": [],
+        "phone": [],
+        "email": [],
+        "message": []
+      },
+      "fields": [
+        {
+          "name": "name",
+          "label": "Имя",
+          "aliases": [],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "name"
+        },
+        {
+          "name": "phone",
+          "label": "Телефон",
+          "aliases": [],
+          "type": "tel",
+          "required": false,
+          "omit": false,
+          "map": "phone"
+        },
+        {
+          "name": "email",
+          "label": "Email",
+          "aliases": [],
+          "type": "email",
+          "required": false,
+          "omit": false,
+          "map": "email"
+        },
+        {
+          "name": "message",
+          "label": "Сообщение",
+          "aliases": [],
+          "type": "textarea",
+          "required": false,
+          "omit": false,
+          "map": "message"
+        }
+      ],
+      "requiredFields": [],
+      "acceptedContentTypes": [
+        "application/json",
+        "application/x-www-form-urlencoded",
+        "multipart/form-data"
+      ],
+      "telegramConfig": {
+        "tokenEnvKey": "MCAS77_TOKEN",
+        "chatEnvKeys": [
+          "MCAS77_CHAT"
+        ]
+      },
+      "antiSpamConfig": {
+        "enabled": true,
+        "turnstile": false,
+        "honeypotField": "website",
+        "minFillTimeMs": 1500,
+        "rateLimit": {
+          "windowMs": 60000,
+          "max": 5
+        }
+      },
+      "enabled": true
+    },
+    {
+      "formKey": "mcas77_modal_form",
+      "siteId": "mcas77",
+      "title": "Modal заявка",
+      "allowedOrigins": [
+        "https://mcas77.ru",
+        "https://www.mcas77.ru"
+      ],
+      "aliases": {
+        "name": [],
+        "phone": [],
+        "direction": []
+      },
+      "fields": [
+        {
+          "name": "name",
+          "label": "Имя",
+          "aliases": [],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "name"
+        },
+        {
+          "name": "phone",
+          "label": "Телефон",
+          "aliases": [],
+          "type": "tel",
+          "required": false,
+          "omit": false,
+          "map": "phone"
+        },
+        {
+          "name": "direction",
+          "label": "Направление",
+          "aliases": [],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "direction"
+        }
+      ],
+      "requiredFields": [],
+      "acceptedContentTypes": [
+        "application/json",
+        "application/x-www-form-urlencoded",
+        "multipart/form-data"
+      ],
+      "telegramConfig": {
+        "tokenEnvKey": "MCAS77_TOKEN",
+        "chatEnvKeys": [
+          "MCAS77_CHAT"
+        ]
+      },
+      "antiSpamConfig": {
+        "enabled": true,
+        "turnstile": false,
+        "honeypotField": "website",
+        "minFillTimeMs": 1500,
+        "rateLimit": {
+          "windowMs": 60000,
+          "max": 5
+        }
+      },
+      "enabled": true
+    },
+    {
+      "formKey": "kitchen_contacts_form",
+      "siteId": "kitchen",
+      "title": "Контакты",
+      "allowedOrigins": [
+        "https://delaem-kuni.ru",
+        "https://www.delaem-kuni.ru"
+      ],
+      "aliases": {
+        "name": [],
+        "phone": [],
+        "company": [],
+        "email": [],
+        "website": [],
+        "comment": []
+      },
+      "fields": [
+        {
+          "name": "name",
+          "label": "Имя",
+          "aliases": [],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "name"
+        },
+        {
+          "name": "phone",
+          "label": "Телефон",
+          "aliases": [],
+          "type": "tel",
+          "required": false,
+          "omit": false,
+          "map": "phone"
+        },
+        {
+          "name": "company",
+          "label": "Компания",
+          "aliases": [],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "company"
+        },
+        {
+          "name": "email",
+          "label": "Email",
+          "aliases": [],
+          "type": "email",
+          "required": false,
+          "omit": false,
+          "map": "email"
+        },
+        {
+          "name": "website",
+          "label": "Сайт",
+          "aliases": [],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "website"
+        },
+        {
+          "name": "comment",
+          "label": "Комментарий",
+          "aliases": [],
+          "type": "textarea",
+          "required": false,
+          "omit": false,
+          "map": "comment"
+        }
+      ],
+      "requiredFields": [],
+      "acceptedContentTypes": [
+        "application/json",
+        "application/x-www-form-urlencoded",
+        "multipart/form-data"
+      ],
+      "telegramConfig": {
+        "tokenEnvKey": "KITCHEN_TOKEN",
+        "chatEnvKeys": [
+          "KITCHEN_CHAT"
+        ]
+      },
+      "antiSpamConfig": {
+        "enabled": true,
+        "turnstile": false,
+        "honeypotField": "website",
+        "minFillTimeMs": 1500,
+        "rateLimit": {
+          "windowMs": 60000,
+          "max": 5
+        }
+      },
+      "enabled": true
+    },
+    {
+      "formKey": "kitchen_popup_form",
+      "siteId": "kitchen",
+      "title": "Попап",
+      "allowedOrigins": [
+        "https://delaem-kuni.ru",
+        "https://www.delaem-kuni.ru"
+      ],
+      "aliases": {
+        "name": [],
+        "phone": []
+      },
+      "fields": [
+        {
+          "name": "name",
+          "label": "Имя",
+          "aliases": [],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "name"
+        },
+        {
+          "name": "phone",
+          "label": "Телефон",
+          "aliases": [],
+          "type": "tel",
+          "required": false,
+          "omit": false,
+          "map": "phone"
+        }
+      ],
+      "requiredFields": [],
+      "acceptedContentTypes": [
+        "application/json",
+        "application/x-www-form-urlencoded",
+        "multipart/form-data"
+      ],
+      "telegramConfig": {
+        "tokenEnvKey": "KITCHEN_TOKEN",
+        "chatEnvKeys": [
+          "KITCHEN_CHAT"
+        ]
+      },
+      "antiSpamConfig": {
+        "enabled": true,
+        "turnstile": false,
+        "honeypotField": "website",
+        "minFillTimeMs": 1500,
+        "rateLimit": {
+          "windowMs": 60000,
+          "max": 5
+        }
+      },
+      "enabled": true
+    },
+    {
+      "formKey": "electric_best_price_form",
+      "siteId": "electric",
+      "title": "Получить лучшую цену",
+      "allowedOrigins": [
+        "https://atlantsales.shop",
+        "https://www.atlantsales.shop"
+      ],
+      "aliases": {
+        "name": [],
+        "phone": [],
+        "volume": [
+          "purchaseVolume",
+          "purchase_volume"
+        ],
+        "clientType": [
+          "client_type"
+        ]
+      },
+      "fields": [
+        {
+          "name": "name",
+          "label": "Ваше имя",
+          "aliases": [],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "name"
+        },
+        {
+          "name": "phone",
+          "label": "Телефон / WhatsApp",
+          "aliases": [],
+          "type": "tel",
+          "required": false,
+          "omit": false,
+          "map": "phone"
+        },
+        {
+          "name": "volume",
+          "label": "Примерный объём закупки",
+          "aliases": [
+            "purchaseVolume",
+            "purchase_volume"
+          ],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "volume"
+        },
+        {
+          "name": "clientType",
+          "label": "Тип клиента",
+          "aliases": [
+            "client_type"
+          ],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "clientType"
+        }
+      ],
+      "requiredFields": [],
+      "acceptedContentTypes": [
+        "application/json",
+        "application/x-www-form-urlencoded",
+        "multipart/form-data"
+      ],
+      "telegramConfig": {
+        "tokenEnvKey": "ELECTRIC_TOKEN",
+        "chatEnvKeys": [
+          "ELECTRIC_CHAT"
+        ]
+      },
+      "antiSpamConfig": {
+        "enabled": true,
+        "turnstile": false,
+        "honeypotField": "website",
+        "minFillTimeMs": 1500,
+        "rateLimit": {
+          "windowMs": 60000,
+          "max": 5
+        }
+      },
+      "enabled": true
+    },
+    {
+      "formKey": "electric_quick_order_form",
+      "siteId": "electric",
+      "title": "Быстрый заказ",
+      "allowedOrigins": [
+        "https://atlantsales.shop",
+        "https://www.atlantsales.shop"
+      ],
+      "aliases": {
+        "name": [],
+        "phone": []
+      },
+      "fields": [
+        {
+          "name": "name",
+          "label": "Ваше имя",
+          "aliases": [],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "name"
+        },
+        {
+          "name": "phone",
+          "label": "Телефон",
+          "aliases": [],
+          "type": "tel",
+          "required": false,
+          "omit": false,
+          "map": "phone"
+        }
+      ],
+      "requiredFields": [],
+      "acceptedContentTypes": [
+        "application/json",
+        "application/x-www-form-urlencoded",
+        "multipart/form-data"
+      ],
+      "telegramConfig": {
+        "tokenEnvKey": "ELECTRIC_TOKEN",
+        "chatEnvKeys": [
+          "ELECTRIC_CHAT"
+        ]
+      },
+      "antiSpamConfig": {
+        "enabled": true,
+        "turnstile": false,
+        "honeypotField": "website",
+        "minFillTimeMs": 1500,
+        "rateLimit": {
+          "windowMs": 60000,
+          "max": 5
+        }
+      },
+      "enabled": true
+    },
+    {
+      "formKey": "electric_popup_form",
+      "siteId": "electric",
+      "title": "Попап-заявка",
+      "allowedOrigins": [
+        "https://atlantsales.shop",
+        "https://www.atlantsales.shop"
+      ],
+      "aliases": {
+        "name": [],
+        "phone": [],
+        "modalSource": [
+          "modal_source"
+        ]
+      },
+      "fields": [
+        {
+          "name": "name",
+          "label": "Ваше имя",
+          "aliases": [],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "name"
+        },
+        {
+          "name": "phone",
+          "label": "Телефон / WhatsApp",
+          "aliases": [],
+          "type": "tel",
+          "required": false,
+          "omit": false,
+          "map": "phone"
+        },
+        {
+          "name": "modalSource",
+          "label": "Источник заявки",
+          "aliases": [
+            "modal_source"
+          ],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "modalSource"
+        }
+      ],
+      "requiredFields": [],
+      "acceptedContentTypes": [
+        "application/json",
+        "application/x-www-form-urlencoded",
+        "multipart/form-data"
+      ],
+      "telegramConfig": {
+        "tokenEnvKey": "ELECTRIC_TOKEN",
+        "chatEnvKeys": [
+          "ELECTRIC_CHAT"
+        ]
+      },
+      "antiSpamConfig": {
+        "enabled": true,
+        "turnstile": false,
+        "honeypotField": "website",
+        "minFillTimeMs": 1500,
+        "rateLimit": {
+          "windowMs": 60000,
+          "max": 5
+        }
+      },
+      "enabled": true
+    },
+    {
+      "formKey": "vrednet_express_form",
+      "siteId": "vrednet",
+      "title": "Срочный выезд",
+      "allowedOrigins": [
+        "https://vrednet.msk.ru",
+        "https://www.vrednet.msk.ru"
+      ],
+      "aliases": {
+        "name": [
+          "express-name"
+        ],
+        "phone": [
+          "express-phone"
+        ]
+      },
+      "fields": [
+        {
+          "name": "name",
+          "label": "Имя",
+          "aliases": [
+            "express-name"
+          ],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "name"
+        },
+        {
+          "name": "phone",
+          "label": "Телефон",
+          "aliases": [
+            "express-phone"
+          ],
+          "type": "tel",
+          "required": false,
+          "omit": false,
+          "map": "phone"
+        }
+      ],
+      "requiredFields": [],
+      "acceptedContentTypes": [
+        "application/json",
+        "application/x-www-form-urlencoded",
+        "multipart/form-data"
+      ],
+      "telegramConfig": {
+        "tokenEnvKey": "VREDNET_TOKEN",
+        "chatEnvKeys": [
+          "VREDNET_CHAT"
+        ]
+      },
+      "antiSpamConfig": {
+        "enabled": true,
+        "turnstile": false,
+        "honeypotField": "website",
+        "minFillTimeMs": 1500,
+        "rateLimit": {
+          "windowMs": 60000,
+          "max": 5
+        }
+      },
+      "enabled": true
+    },
+    {
+      "formKey": "vrednet_contacts_form",
+      "siteId": "vrednet",
+      "title": "Контакты",
+      "allowedOrigins": [
+        "https://vrednet.msk.ru",
+        "https://www.vrednet.msk.ru"
+      ],
+      "aliases": {
+        "name": [
+          "contacts-name"
+        ],
+        "phone": [
+          "contacts-phone"
+        ]
+      },
+      "fields": [
+        {
+          "name": "name",
+          "label": "Имя",
+          "aliases": [
+            "contacts-name"
+          ],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "name"
+        },
+        {
+          "name": "phone",
+          "label": "Телефон",
+          "aliases": [
+            "contacts-phone"
+          ],
+          "type": "tel",
+          "required": false,
+          "omit": false,
+          "map": "phone"
+        }
+      ],
+      "requiredFields": [],
+      "acceptedContentTypes": [
+        "application/json",
+        "application/x-www-form-urlencoded",
+        "multipart/form-data"
+      ],
+      "telegramConfig": {
+        "tokenEnvKey": "VREDNET_TOKEN",
+        "chatEnvKeys": [
+          "VREDNET_CHAT"
+        ]
+      },
+      "antiSpamConfig": {
+        "enabled": true,
+        "turnstile": false,
+        "honeypotField": "website",
+        "minFillTimeMs": 1500,
+        "rateLimit": {
+          "windowMs": 60000,
+          "max": 5
+        }
+      },
+      "enabled": true
+    },
+    {
+      "formKey": "vrednet_modal_form",
+      "siteId": "vrednet",
+      "title": "Модальное окно",
+      "allowedOrigins": [
+        "https://vrednet.msk.ru",
+        "https://www.vrednet.msk.ru"
+      ],
+      "aliases": {
+        "name": [
+          "order-name"
+        ],
+        "phone": [
+          "order-phone"
+        ]
+      },
+      "fields": [
+        {
+          "name": "name",
+          "label": "Имя",
+          "aliases": [
+            "order-name"
+          ],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "name"
+        },
+        {
+          "name": "phone",
+          "label": "Телефон",
+          "aliases": [
+            "order-phone"
+          ],
+          "type": "tel",
+          "required": false,
+          "omit": false,
+          "map": "phone"
+        }
+      ],
+      "requiredFields": [],
+      "acceptedContentTypes": [
+        "application/json",
+        "application/x-www-form-urlencoded",
+        "multipart/form-data"
+      ],
+      "telegramConfig": {
+        "tokenEnvKey": "VREDNET_TOKEN",
+        "chatEnvKeys": [
+          "VREDNET_CHAT"
+        ]
+      },
+      "antiSpamConfig": {
+        "enabled": true,
+        "turnstile": false,
+        "honeypotField": "website",
+        "minFillTimeMs": 1500,
+        "rateLimit": {
+          "windowMs": 60000,
+          "max": 5
+        }
+      },
+      "enabled": true
+    },
+    {
+      "formKey": "vrednet_hero_quiz_form",
+      "siteId": "vrednet",
+      "title": "Hero-квиз",
+      "allowedOrigins": [
+        "https://vrednet.msk.ru",
+        "https://www.vrednet.msk.ru"
+      ],
+      "aliases": {
+        "problem": [],
+        "location": [],
+        "urgency": [],
+        "attempt": [],
+        "name": [],
+        "phone": []
+      },
+      "fields": [
+        {
+          "name": "problem",
+          "label": "Какая у вас проблема",
+          "aliases": [],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "problem"
+        },
+        {
+          "name": "location",
+          "label": "Где необходимо провести обработку",
+          "aliases": [],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "location"
+        },
+        {
+          "name": "urgency",
+          "label": "Как быстро необходима обработка",
+          "aliases": [],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "urgency"
+        },
+        {
+          "name": "attempt",
+          "label": "Уже пробовали бороться с проблемой",
+          "aliases": [],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "attempt"
+        },
+        {
+          "name": "name",
+          "label": "Имя",
+          "aliases": [],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "name"
+        },
+        {
+          "name": "phone",
+          "label": "Телефон",
+          "aliases": [],
+          "type": "tel",
+          "required": false,
+          "omit": false,
+          "map": "phone"
+        }
+      ],
+      "requiredFields": [],
+      "acceptedContentTypes": [
+        "application/json",
+        "application/x-www-form-urlencoded",
+        "multipart/form-data"
+      ],
+      "telegramConfig": {
+        "tokenEnvKey": "VREDNET_TOKEN",
+        "chatEnvKeys": [
+          "VREDNET_CHAT"
+        ]
+      },
+      "antiSpamConfig": {
+        "enabled": true,
+        "turnstile": false,
+        "honeypotField": "website",
+        "minFillTimeMs": 1500,
+        "rateLimit": {
+          "windowMs": 60000,
+          "max": 5
+        }
+      },
+      "enabled": true
+    },
+    {
+      "formKey": "oneart_feedback_form",
+      "siteId": "oneart",
+      "title": "Обратная связь",
+      "allowedOrigins": [
+        "https://oneartstudio.ru",
+        "https://www.oneartstudio.ru"
+      ],
+      "aliases": {
+        "name": [],
+        "phone": [],
+        "program": [],
+        "agreement": []
+      },
+      "fields": [
+        {
+          "name": "name",
+          "label": "Имя",
+          "aliases": [],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "name"
+        },
+        {
+          "name": "phone",
+          "label": "Телефон",
+          "aliases": [],
+          "type": "tel",
+          "required": false,
+          "omit": false,
+          "map": "phone"
+        },
+        {
+          "name": "program",
+          "label": "Направление",
+          "aliases": [],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "program"
+        },
+        {
+          "name": "agreement",
+          "label": "Согласие на обработку персональных данных",
+          "aliases": [],
+          "type": "checkbox",
+          "required": false,
+          "omit": false,
+          "map": "agreement"
+        }
+      ],
+      "requiredFields": [],
+      "acceptedContentTypes": [
+        "application/json",
+        "application/x-www-form-urlencoded",
+        "multipart/form-data"
+      ],
+      "telegramConfig": {
+        "tokenEnvKey": "ONEART_TOKEN",
+        "chatEnvKeys": [
+          "ONEART_CHATARTEM",
+          "ONEART_CHATVANIK"
+        ]
+      },
+      "antiSpamConfig": {
+        "enabled": true,
+        "turnstile": false,
+        "honeypotField": "website",
+        "minFillTimeMs": 1500,
+        "rateLimit": {
+          "windowMs": 60000,
+          "max": 5
+        }
+      },
+      "enabled": true
+    },
+    {
+      "formKey": "oneart_trial_lesson_form",
+      "siteId": "oneart",
+      "title": "Пробный урок",
+      "allowedOrigins": [
+        "https://oneartstudio.ru",
+        "https://www.oneartstudio.ru"
+      ],
+      "aliases": {
+        "name": [],
+        "phone": [],
+        "program": [],
+        "agreement": []
+      },
+      "fields": [
+        {
+          "name": "name",
+          "label": "Имя",
+          "aliases": [],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "name"
+        },
+        {
+          "name": "phone",
+          "label": "Телефон",
+          "aliases": [],
+          "type": "tel",
+          "required": false,
+          "omit": false,
+          "map": "phone"
+        },
+        {
+          "name": "program",
+          "label": "Направление",
+          "aliases": [],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "program"
+        },
+        {
+          "name": "agreement",
+          "label": "Согласие на обработку персональных данных",
+          "aliases": [],
+          "type": "checkbox",
+          "required": false,
+          "omit": false,
+          "map": "agreement"
+        }
+      ],
+      "requiredFields": [],
+      "acceptedContentTypes": [
+        "application/json",
+        "application/x-www-form-urlencoded",
+        "multipart/form-data"
+      ],
+      "telegramConfig": {
+        "tokenEnvKey": "ONEART_TOKEN",
+        "chatEnvKeys": [
+          "ONEART_CHATARTEM",
+          "ONEART_CHATVANIK"
+        ]
+      },
+      "antiSpamConfig": {
+        "enabled": true,
+        "turnstile": false,
+        "honeypotField": "website",
+        "minFillTimeMs": 1500,
+        "rateLimit": {
+          "windowMs": 60000,
+          "max": 5
+        }
+      },
+      "enabled": true
+    },
+    {
+      "formKey": "oneart_gift_certificate_form",
+      "siteId": "oneart",
+      "title": "Подарочный сертификат",
+      "allowedOrigins": [
+        "https://oneartstudio.ru",
+        "https://www.oneartstudio.ru"
+      ],
+      "aliases": {
+        "name": [],
+        "phone": [],
+        "program": [],
+        "lessons": [],
+        "agreement": []
+      },
+      "fields": [
+        {
+          "name": "name",
+          "label": "Имя",
+          "aliases": [],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "name"
+        },
+        {
+          "name": "phone",
+          "label": "Телефон",
+          "aliases": [],
+          "type": "tel",
+          "required": false,
+          "omit": false,
+          "map": "phone"
+        },
+        {
+          "name": "program",
+          "label": "Направление",
+          "aliases": [],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "program"
+        },
+        {
+          "name": "lessons",
+          "label": "Количество занятий",
+          "aliases": [],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "lessons"
+        },
+        {
+          "name": "agreement",
+          "label": "Согласие на обработку персональных данных",
+          "aliases": [],
+          "type": "checkbox",
+          "required": false,
+          "omit": false,
+          "map": "agreement"
+        }
+      ],
+      "requiredFields": [],
+      "acceptedContentTypes": [
+        "application/json",
+        "application/x-www-form-urlencoded",
+        "multipart/form-data"
+      ],
+      "telegramConfig": {
+        "tokenEnvKey": "ONEART_TOKEN",
+        "chatEnvKeys": [
+          "ONEART_CHATARTEM",
+          "ONEART_CHATVANIK"
         ]
       },
       "antiSpamConfig": {
@@ -98,71 +2039,121 @@
     {
       "formKey": "karina_audit_popup_form",
       "siteId": "karina",
-      "title": "Audit Popup Form",
+      "title": "Попап аудит",
       "allowedOrigins": [
         "https://zheglova-karina.ru",
         "https://www.zheglova-karina.ru"
       ],
       "aliases": {
-        "name": [
-          "audit-popup-name"
-        ],
-        "contact": [
-          "audit-popup-contact"
-        ],
-        "consent": [
-          "audit-popup-consent"
-        ]
+        "audit-popup-name": [],
+        "audit-popup-contact": [],
+        "audit-popup-consent": []
       },
       "fields": [
         {
-          "name": "name",
-          "label": "Name",
-          "aliases": [
-            "audit-popup-name"
-          ],
+          "name": "audit-popup-name",
+          "label": "Как вас зовут",
+          "aliases": [],
           "type": "text",
-          "required": true,
+          "required": false,
           "omit": false,
-          "map": "name"
+          "map": "audit-popup-name"
         },
         {
-          "name": "contact",
-          "label": "Contact",
-          "aliases": [
-            "audit-popup-contact"
-          ],
-          "type": "text",
-          "required": true,
+          "name": "audit-popup-contact",
+          "label": "Телеграм, Ватсап или телефон",
+          "aliases": [],
+          "type": "tel",
+          "required": false,
           "omit": false,
-          "map": "contact"
+          "map": "audit-popup-contact"
         },
         {
-          "name": "consent",
-          "label": "Consent",
-          "aliases": [
-            "audit-popup-consent"
-          ],
+          "name": "audit-popup-consent",
+          "label": "Согласие на обработку персональных данных",
+          "aliases": [],
           "type": "checkbox",
-          "required": true,
+          "required": false,
           "omit": false,
-          "map": "consent"
+          "map": "audit-popup-consent"
         }
       ],
-      "requiredFields": [
-        "name",
-        "contact",
-        "consent"
-      ],
+      "requiredFields": [],
       "acceptedContentTypes": [
         "application/json",
         "application/x-www-form-urlencoded",
         "multipart/form-data"
       ],
       "telegramConfig": {
-        "tokenEnvKey": "TG_DEFAULT_BOT_TOKEN",
+        "tokenEnvKey": "KARINA_TOKEN",
         "chatEnvKeys": [
-          "TG_DEFAULT_CHAT_ID"
+          "KARINA_CHAT"
+        ]
+      },
+      "antiSpamConfig": {
+        "enabled": true,
+        "turnstile": false,
+        "honeypotField": "website",
+        "minFillTimeMs": 1500,
+        "rateLimit": {
+          "windowMs": 60000,
+          "max": 5
+        }
+      },
+      "enabled": true
+    },
+    {
+      "formKey": "karina_audit_form",
+      "siteId": "karina",
+      "title": "Форма аудита",
+      "allowedOrigins": [
+        "https://zheglova-karina.ru",
+        "https://www.zheglova-karina.ru"
+      ],
+      "aliases": {
+        "f-name": [],
+        "f-contact": [],
+        "f-consent": []
+      },
+      "fields": [
+        {
+          "name": "f-name",
+          "label": "Как вас зовут",
+          "aliases": [],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "f-name"
+        },
+        {
+          "name": "f-contact",
+          "label": "Телеграм, Ватсап или телефон",
+          "aliases": [],
+          "type": "tel",
+          "required": false,
+          "omit": false,
+          "map": "f-contact"
+        },
+        {
+          "name": "f-consent",
+          "label": "Согласие на обработку персональных данных",
+          "aliases": [],
+          "type": "checkbox",
+          "required": false,
+          "omit": false,
+          "map": "f-consent"
+        }
+      ],
+      "requiredFields": [],
+      "acceptedContentTypes": [
+        "application/json",
+        "application/x-www-form-urlencoded",
+        "multipart/form-data"
+      ],
+      "telegramConfig": {
+        "tokenEnvKey": "KARINA_TOKEN",
+        "chatEnvKeys": [
+          "KARINA_CHAT"
         ]
       },
       "antiSpamConfig": {
