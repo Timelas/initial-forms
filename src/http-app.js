@@ -23,9 +23,9 @@ async function ensureAppReady() {
 const port = Number(process.env.PORT || 3000);
 const publicBaseUrl = process.env.PUBLIC_BASE_URL || `http://localhost:${port}`;
 const trustProxy = String(process.env.TRUST_PROXY || "false") === "true";
+const adminSessionTtlMs = 1000 * 60 * 60 * 24 * 7;
 
 const rateLimitMemory = new Map();
-const sessions = new Map();
 
 const reasonTexts = {
   unknown_form_key: "Unknown form key",
@@ -74,13 +74,51 @@ function parseCookies(cookieHeader = "") {
   );
 }
 
-function createSession(username) {
-  const sessionId = crypto.randomBytes(24).toString("hex");
-  sessions.set(sessionId, {
-    username,
-    createdAt: Date.now()
-  });
-  return sessionId;
+function getAdminSessionSecret() {
+  return process.env.ADMIN_SESSION_SECRET || `${process.env.ADMIN_USERNAME || ""}:${process.env.ADMIN_PASSWORD || ""}`;
+}
+
+function signSessionPayload(username, expiresAt) {
+  const payload = `${username}:${expiresAt}`;
+  const signature = crypto
+    .createHmac("sha256", getAdminSessionSecret())
+    .update(payload)
+    .digest("hex");
+  return Buffer.from(`${payload}:${signature}`, "utf8").toString("base64url");
+}
+
+function createSessionCookie(username) {
+  const expiresAt = Date.now() + adminSessionTtlMs;
+  const token = signSessionPayload(username, expiresAt);
+  return `session=${token}; HttpOnly; Path=/; SameSite=Lax; Max-Age=${Math.floor(adminSessionTtlMs / 1000)}`;
+}
+
+function clearSessionCookie() {
+  return "session=; HttpOnly; Path=/; SameSite=Lax; Max-Age=0";
+}
+
+function verifySessionToken(token) {
+  if (!token) {
+    return false;
+  }
+
+  try {
+    const raw = Buffer.from(token, "base64url").toString("utf8");
+    const [username, expiresAtRaw, signature] = raw.split(":");
+    const expiresAt = Number(expiresAtRaw);
+
+    if (!username || !Number.isFinite(expiresAt) || !signature || Date.now() > expiresAt) {
+      return false;
+    }
+
+    const expectedToken = signSessionPayload(username, expiresAt);
+    const expectedRaw = Buffer.from(expectedToken, "base64url").toString("utf8");
+    const expectedSignature = expectedRaw.split(":")[2];
+
+    return crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expectedSignature));
+  } catch {
+    return false;
+  }
 }
 
 function getRequestIp(req) {
@@ -262,13 +300,12 @@ async function requireAdmin(req, res) {
       data.username === process.env.ADMIN_USERNAME &&
       data.password === process.env.ADMIN_PASSWORD
     ) {
-      const sessionId = createSession(data.username);
       json(
         res,
         200,
         { ok: true },
         {
-          "Set-Cookie": `session=${sessionId}; HttpOnly; Path=/; SameSite=Lax`
+          "Set-Cookie": createSessionCookie(data.username)
         }
       );
       return false;
@@ -291,8 +328,7 @@ async function requireAdmin(req, res) {
 
 function hasAdminAccess(req) {
   const cookies = parseCookies(req.headers.cookie);
-  const session = cookies.session ? sessions.get(cookies.session) : null;
-  if (session) {
+  if (verifySessionToken(cookies.session)) {
     return true;
   }
 
@@ -323,6 +359,17 @@ async function handleAdminLogin(req, res) {
     return;
   }
   return json(res, 200, { ok: true });
+}
+
+function handleAdminLogout(res) {
+  return json(
+    res,
+    200,
+    { ok: true },
+    {
+      "Set-Cookie": clearSessionCookie()
+    }
+  );
 }
 
 function sendRoot(res) {
@@ -511,6 +558,10 @@ export async function appHandler(req, res) {
 
     if (req.method === "POST" && pathname === "/api/admin/login") {
       return handleAdminLogin(req, res);
+    }
+
+    if (req.method === "POST" && pathname === "/api/admin/logout") {
+      return handleAdminLogout(res);
     }
 
     if (req.method === "OPTIONS" && pathname.startsWith("/api/forms/")) {

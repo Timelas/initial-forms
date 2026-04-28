@@ -107,6 +107,15 @@ export function renderAdminPage() {
         background: var(--accent);
         color: white;
         cursor: pointer;
+        transition: opacity 0.18s ease, transform 0.18s ease;
+      }
+      button:hover {
+        transform: translateY(-1px);
+      }
+      button:disabled {
+        cursor: wait;
+        opacity: 0.6;
+        transform: none;
       }
       button.secondary {
         background: #ead9ce;
@@ -300,11 +309,35 @@ export function renderAdminPage() {
         els.status.textContent = "";
       }
 
+      function setButtonBusy(button, busy, busyText = "Сохраняем...") {
+        if (!button) {
+          return;
+        }
+        if (!button.dataset.defaultText) {
+          button.dataset.defaultText = button.textContent;
+        }
+        button.disabled = busy;
+        button.textContent = busy ? busyText : button.dataset.defaultText;
+      }
+
+      async function runWithButton(button, action, busyText) {
+        setButtonBusy(button, true, busyText);
+        try {
+          return await action();
+        } finally {
+          setButtonBusy(button, false);
+        }
+      }
+
       async function api(path, options = {}) {
         const response = await fetch(path, {
           headers: { Accept: "application/json", ...(options.headers || {}) },
           ...options
         });
+        if (response.status === 401) {
+          window.location.href = "/admin";
+          throw new Error("Сессия истекла. Войдите заново.");
+        }
         const data = await response.json();
         if (!response.ok) {
           throw new Error(data.error || "Request failed");
@@ -585,19 +618,43 @@ export function renderAdminPage() {
       document.getElementById("newSiteBtn").onclick = () => {
         state.selectedSiteId = null;
         renderSiteEditor();
+        showStatus("Новый сайт. Заполните поля и сохраните.");
       };
       document.getElementById("newFormBtn").onclick = () => {
         state.selectedFormKey = null;
         renderFormEditor();
         renderFieldRows([]);
+        showStatus("Новая форма. Заполните поля и сохраните.");
       };
-      document.getElementById("saveSiteBtn").onclick = () => saveSite().catch((error) => showStatus(error.message, true));
-      document.getElementById("deleteSiteBtn").onclick = () => deleteSite().catch((error) => showStatus(error.message, true));
+      document.getElementById("saveSiteBtn").onclick = () => runWithButton(
+        document.getElementById("saveSiteBtn"),
+        async () => saveSite().catch((error) => showStatus(error.message, true)),
+        "Сохраняем сайт..."
+      );
+      document.getElementById("deleteSiteBtn").onclick = () => runWithButton(
+        document.getElementById("deleteSiteBtn"),
+        async () => deleteSite().catch((error) => showStatus(error.message, true)),
+        "Удаляем сайт..."
+      );
       document.getElementById("addFieldBtn").onclick = () => document.getElementById("fieldTable").appendChild(createFieldRow());
-      document.getElementById("saveFormBtn").onclick = () => saveForm().catch((error) => showStatus(error.message, true));
-      document.getElementById("deleteFormBtn").onclick = () => deleteForm().catch((error) => showStatus(error.message, true));
-      document.getElementById("copyEndpointBtn").onclick = async () => navigator.clipboard.writeText(els.endpointPreview.textContent);
-      document.getElementById("copyJsBtn").onclick = async () => navigator.clipboard.writeText(els.jsPreview.textContent);
+      document.getElementById("saveFormBtn").onclick = () => runWithButton(
+        document.getElementById("saveFormBtn"),
+        async () => saveForm().catch((error) => showStatus(error.message, true)),
+        "Сохраняем форму..."
+      );
+      document.getElementById("deleteFormBtn").onclick = () => runWithButton(
+        document.getElementById("deleteFormBtn"),
+        async () => deleteForm().catch((error) => showStatus(error.message, true)),
+        "Удаляем форму..."
+      );
+      document.getElementById("copyEndpointBtn").onclick = async () => {
+        await navigator.clipboard.writeText(els.endpointPreview.textContent);
+        showStatus("Endpoint скопирован");
+      };
+      document.getElementById("copyJsBtn").onclick = async () => {
+        await navigator.clipboard.writeText(els.jsPreview.textContent);
+        showStatus("JS пример скопирован");
+      };
       ids.forEach((id) => formInputs[id].addEventListener("input", renderPreview));
 
       loadData().catch((error) => showStatus(error.message, true));
@@ -682,6 +739,11 @@ export function renderAdminLoginPage() {
         background: var(--accent);
         color: white;
         cursor: pointer;
+        transition: opacity 0.18s ease;
+      }
+      button:disabled {
+        cursor: wait;
+        opacity: 0.6;
       }
       .error {
         min-height: 20px;
@@ -710,32 +772,43 @@ export function renderAdminLoginPage() {
     <script>
       const form = document.getElementById("loginForm");
       const errorNode = document.getElementById("error");
+      const submitButton = form.querySelector("button");
+      const defaultButtonText = submitButton.textContent;
 
       form.addEventListener("submit", async (event) => {
         event.preventDefault();
         errorNode.textContent = "";
+        submitButton.disabled = true;
+        submitButton.textContent = "Входим...";
 
-        const payload = {
-          username: document.getElementById("username").value.trim(),
-          password: document.getElementById("password").value
-        };
+        try {
+          const payload = {
+            username: document.getElementById("username").value.trim(),
+            password: document.getElementById("password").value
+          };
 
-        const response = await fetch("/api/admin/login", {
-          method: "POST",
-          headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(payload)
-        });
+          const response = await fetch("/api/admin/login", {
+            method: "POST",
+            headers: {
+              "Accept": "application/json",
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+          });
 
-        const data = await response.json().catch(() => ({}));
-        if (!response.ok) {
-          errorNode.textContent = data.error || "Не удалось войти";
-          return;
+          const data = await response.json().catch(() => ({}));
+          if (!response.ok) {
+            errorNode.textContent = data.error || "Не удалось войти";
+            return;
+          }
+
+          window.location.href = "/admin";
+        } catch {
+          errorNode.textContent = "Ошибка сети или сервера. Попробуйте еще раз.";
+        } finally {
+          submitButton.disabled = false;
+          submitButton.textContent = defaultButtonText;
         }
-
-        window.location.href = "/admin";
       });
     </script>
   </body>
