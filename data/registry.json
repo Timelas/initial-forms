@@ -66,16 +66,6 @@
       "status": "active"
     },
     {
-      "siteId": "kitchen",
-      "name": "Kitchen",
-      "frontendDomains": [
-        "https://delaem-kuni.ru",
-        "https://www.delaem-kuni.ru"
-      ],
-      "apiBaseUrl": "https://initial-forms.ru",
-      "status": "active"
-    },
-    {
       "siteId": "electric",
       "name": "Electric",
       "frontendDomains": [
@@ -607,9 +597,9 @@
         "multipart/form-data"
       ],
       "telegramConfig": {
-        "tokenEnvKey": "TG_DEFAULT_BOT_TOKEN",
+        "tokenEnvKey": "SATR_TOKEN",
         "chatEnvKeys": [
-          "TG_DEFAULT_CHAT_ID"
+          "SATR_CHAT"
         ]
       },
       "antiSpamConfig": {
@@ -704,9 +694,9 @@
         "multipart/form-data"
       ],
       "telegramConfig": {
-        "tokenEnvKey": "TG_DEFAULT_BOT_TOKEN",
+        "tokenEnvKey": "SATR_TOKEN",
         "chatEnvKeys": [
-          "TG_DEFAULT_CHAT_ID"
+          "SATR_CHAT"
         ]
       },
       "antiSpamConfig": {
@@ -1144,158 +1134,6 @@
       "enabled": true
     },
     {
-      "formKey": "kitchen_contacts_form",
-      "siteId": "kitchen",
-      "title": "Контакты",
-      "allowedOrigins": [
-        "https://delaem-kuni.ru",
-        "https://www.delaem-kuni.ru"
-      ],
-      "aliases": {
-        "name": [],
-        "phone": [],
-        "company": [],
-        "email": [],
-        "website": [],
-        "comment": []
-      },
-      "fields": [
-        {
-          "name": "name",
-          "label": "Имя",
-          "aliases": [],
-          "type": "text",
-          "required": false,
-          "omit": false,
-          "map": "name"
-        },
-        {
-          "name": "phone",
-          "label": "Телефон",
-          "aliases": [],
-          "type": "tel",
-          "required": false,
-          "omit": false,
-          "map": "phone"
-        },
-        {
-          "name": "company",
-          "label": "Компания",
-          "aliases": [],
-          "type": "text",
-          "required": false,
-          "omit": false,
-          "map": "company"
-        },
-        {
-          "name": "email",
-          "label": "Email",
-          "aliases": [],
-          "type": "email",
-          "required": false,
-          "omit": false,
-          "map": "email"
-        },
-        {
-          "name": "website",
-          "label": "Сайт",
-          "aliases": [],
-          "type": "text",
-          "required": false,
-          "omit": false,
-          "map": "website"
-        },
-        {
-          "name": "comment",
-          "label": "Комментарий",
-          "aliases": [],
-          "type": "textarea",
-          "required": false,
-          "omit": false,
-          "map": "comment"
-        }
-      ],
-      "requiredFields": [],
-      "acceptedContentTypes": [
-        "application/json",
-        "application/x-www-form-urlencoded",
-        "multipart/form-data"
-      ],
-      "telegramConfig": {
-        "tokenEnvKey": "TG_DEFAULT_BOT_TOKEN",
-        "chatEnvKeys": [
-          "TG_DEFAULT_CHAT_ID"
-        ]
-      },
-      "antiSpamConfig": {
-        "enabled": true,
-        "turnstile": false,
-        "honeypotField": "website",
-        "minFillTimeMs": 1500,
-        "rateLimit": {
-          "windowMs": 60000,
-          "max": 5
-        }
-      },
-      "enabled": true
-    },
-    {
-      "formKey": "kitchen_popup_form",
-      "siteId": "kitchen",
-      "title": "Попап",
-      "allowedOrigins": [
-        "https://delaem-kuni.ru",
-        "https://www.delaem-kuni.ru"
-      ],
-      "aliases": {
-        "name": [],
-        "phone": []
-      },
-      "fields": [
-        {
-          "name": "name",
-          "label": "Имя",
-          "aliases": [],
-          "type": "text",
-          "required": false,
-          "omit": false,
-          "map": "name"
-        },
-        {
-          "name": "phone",
-          "label": "Телефон",
-          "aliases": [],
-          "type": "tel",
-          "required": false,
-          "omit": false,
-          "map": "phone"
-        }
-      ],
-      "requiredFields": [],
-      "acceptedContentTypes": [
-        "application/json",
-        "application/x-www-form-urlencoded",
-        "multipart/form-data"
-      ],
-      "telegramConfig": {
-        "tokenEnvKey": "TG_DEFAULT_BOT_TOKEN",
-        "chatEnvKeys": [
-          "TG_DEFAULT_CHAT_ID"
-        ]
-      },
-      "antiSpamConfig": {
-        "enabled": true,
-        "turnstile": false,
-        "honeypotField": "website",
-        "minFillTimeMs": 1500,
-        "rateLimit": {
-          "windowMs": 60000,
-          "max": 5
-        }
-      },
-      "enabled": true
-    },
-    {
       "formKey": "electric_best_price_form",
       "siteId": "electric",
       "title": "Получить лучшую цену",
@@ -1554,9 +1392,9 @@
         "multipart/form-data"
       ],
       "telegramConfig": {
-        "tokenEnvKey": "TG_DEFAULT_BOT_TOKEN",
+        "tokenEnvKey": "VREDNET_TOKEN",
         "chatEnvKeys": [
-          "TG_DEFAULT_CHAT_ID"
+          "VREDNET_CHAT"
         ]
       },
       "antiSpamConfig": {
@@ -1618,9 +1456,9 @@
         "multipart/form-data"
       ],
       "telegramConfig": {
-        "tokenEnvKey": "TG_DEFAULT_BOT_TOKEN",
+        "tokenEnvKey": "VREDNET_TOKEN",
         "chatEnvKeys": [
-          "TG_DEFAULT_CHAT_ID"
+          "VREDNET_CHAT"
         ]
       },
       "antiSpamConfig": {
@@ -1682,9 +1520,9 @@
         "multipart/form-data"
       ],
       "telegramConfig": {
-        "tokenEnvKey": "TG_DEFAULT_BOT_TOKEN",
+        "tokenEnvKey": "VREDNET_TOKEN",
         "chatEnvKeys": [
-          "TG_DEFAULT_CHAT_ID"
+          "VREDNET_CHAT"
         ]
       },
       "antiSpamConfig": {
@@ -1778,9 +1616,9 @@
         "multipart/form-data"
       ],
       "telegramConfig": {
-        "tokenEnvKey": "TG_DEFAULT_BOT_TOKEN",
+        "tokenEnvKey": "VREDNET_TOKEN",
         "chatEnvKeys": [
-          "TG_DEFAULT_CHAT_ID"
+          "VREDNET_CHAT"
         ]
       },
       "antiSpamConfig": {
@@ -1854,9 +1692,10 @@
         "multipart/form-data"
       ],
       "telegramConfig": {
-        "tokenEnvKey": "TG_DEFAULT_BOT_TOKEN",
+        "tokenEnvKey": "ONEART_TOKEN",
         "chatEnvKeys": [
-          "TG_DEFAULT_CHAT_ID"
+          "ONEART_CHATARTEM",
+          "ONEART_CHATVANIK"
         ]
       },
       "antiSpamConfig": {
@@ -1930,9 +1769,10 @@
         "multipart/form-data"
       ],
       "telegramConfig": {
-        "tokenEnvKey": "TG_DEFAULT_BOT_TOKEN",
+        "tokenEnvKey": "ONEART_TOKEN",
         "chatEnvKeys": [
-          "TG_DEFAULT_CHAT_ID"
+          "ONEART_CHATARTEM",
+          "ONEART_CHATVANIK"
         ]
       },
       "antiSpamConfig": {
@@ -2016,9 +1856,10 @@
         "multipart/form-data"
       ],
       "telegramConfig": {
-        "tokenEnvKey": "TG_DEFAULT_BOT_TOKEN",
+        "tokenEnvKey": "ONEART_TOKEN",
         "chatEnvKeys": [
-          "TG_DEFAULT_CHAT_ID"
+          "ONEART_CHATARTEM",
+          "ONEART_CHATVANIK"
         ]
       },
       "antiSpamConfig": {
@@ -2082,9 +1923,9 @@
         "multipart/form-data"
       ],
       "telegramConfig": {
-        "tokenEnvKey": "TG_DEFAULT_BOT_TOKEN",
+        "tokenEnvKey": "KARINA_TOKEN",
         "chatEnvKeys": [
-          "TG_DEFAULT_CHAT_ID"
+          "KARINA_CHAT"
         ]
       },
       "antiSpamConfig": {
@@ -2148,9 +1989,9 @@
         "multipart/form-data"
       ],
       "telegramConfig": {
-        "tokenEnvKey": "TG_DEFAULT_BOT_TOKEN",
+        "tokenEnvKey": "KARINA_TOKEN",
         "chatEnvKeys": [
-          "TG_DEFAULT_CHAT_ID"
+          "KARINA_CHAT"
         ]
       },
       "antiSpamConfig": {
