@@ -1,0 +1,229 @@
+{
+  "sites": [
+    {
+      "siteId": "karina",
+      "name": "Karina",
+      "frontendDomains": [
+        "https://zheglova-karina.ru",
+        "https://www.zheglova-karina.ru"
+      ],
+      "apiBaseUrl": "https://forms.company-domain.ru",
+      "status": "active",
+      "notes": "Seed example for migration"
+    }
+  ],
+  "forms": [
+    {
+      "formKey": "karina_audit_form",
+      "siteId": "karina",
+      "title": "Audit Form",
+      "allowedOrigins": [
+        "https://zheglova-karina.ru",
+        "https://www.zheglova-karina.ru"
+      ],
+      "aliases": {
+        "name": [
+          "f-name"
+        ],
+        "contact": [
+          "f-contact"
+        ],
+        "consent": [
+          "f-consent"
+        ]
+      },
+      "fields": [
+        {
+          "name": "name",
+          "label": "Name",
+          "aliases": [
+            "f-name"
+          ],
+          "type": "text",
+          "required": true,
+          "omit": false,
+          "map": "name"
+        },
+        {
+          "name": "contact",
+          "label": "Contact",
+          "aliases": [
+            "f-contact"
+          ],
+          "type": "text",
+          "required": true,
+          "omit": false,
+          "map": "contact"
+        },
+        {
+          "name": "consent",
+          "label": "Consent",
+          "aliases": [
+            "f-consent"
+          ],
+          "type": "checkbox",
+          "required": true,
+          "omit": false,
+          "map": "consent"
+        }
+      ],
+      "requiredFields": [
+        "name",
+        "contact",
+        "consent"
+      ],
+      "acceptedContentTypes": [
+        "application/json",
+        "application/x-www-form-urlencoded",
+        "multipart/form-data"
+      ],
+      "telegramConfig": {
+        "tokenEnvKey": "TG_DEFAULT_BOT_TOKEN",
+        "chatEnvKeys": [
+          "TG_DEFAULT_CHAT_ID"
+        ]
+      },
+      "antiSpamConfig": {
+        "enabled": true,
+        "turnstile": false,
+        "honeypotField": "website",
+        "minFillTimeMs": 1500,
+        "rateLimit": {
+          "windowMs": 60000,
+          "max": 5
+        }
+      },
+      "enabled": true
+    },
+    {
+      "formKey": "karina_audit_popup_form",
+      "siteId": "karina",
+      "title": "Audit Popup Form",
+      "allowedOrigins": [
+        "https://zheglova-karina.ru",
+        "https://www.zheglova-karina.ru"
+      ],
+      "aliases": {
+        "name": [
+          "audit-popup-name"
+        ],
+        "contact": [
+          "audit-popup-contact"
+        ],
+        "consent": [
+          "audit-popup-consent"
+        ]
+      },
+      "fields": [
+        {
+          "name": "name",
+          "label": "Name",
+          "aliases": [
+            "audit-popup-name"
+          ],
+          "type": "text",
+          "required": true,
+          "omit": false,
+          "map": "name"
+        },
+        {
+          "name": "contact",
+          "label": "Contact",
+          "aliases": [
+            "audit-popup-contact"
+          ],
+          "type": "text",
+          "required": true,
+          "omit": false,
+          "map": "contact"
+        },
+        {
+          "name": "consent",
+          "label": "Consent",
+          "aliases": [
+            "audit-popup-consent"
+          ],
+          "type": "checkbox",
+          "required": true,
+          "omit": false,
+          "map": "consent"
+        }
+      ],
+      "requiredFields": [
+        "name",
+        "contact",
+        "consent"
+      ],
+      "acceptedContentTypes": [
+        "application/json",
+        "application/x-www-form-urlencoded",
+        "multipart/form-data"
+      ],
+      "telegramConfig": {
+        "tokenEnvKey": "TG_DEFAULT_BOT_TOKEN",
+        "chatEnvKeys": [
+          "TG_DEFAULT_CHAT_ID"
+        ]
+      },
+      "antiSpamConfig": {
+        "enabled": true,
+        "turnstile": false,
+        "honeypotField": "website",
+        "minFillTimeMs": 1500,
+        "rateLimit": {
+          "windowMs": 60000,
+          "max": 5
+        }
+      },
+      "enabled": true
+    }
+  ],
+  "auditLog": [
+    {
+      "at": "2026-04-28T08:23:36.083Z",
+      "method": "POST",
+      "path": "/api/forms/karina_audit_form",
+      "origin": "https://zheglova-karina.ru",
+      "referer": "",
+      "requestOrigin": "localhost:3100",
+      "contentType": "multipart/form-data; boundary=------------------------oCNns5lGsxOxyicIIiQtvy",
+      "formKey": "karina_audit_form",
+      "siteId": "karina",
+      "ip": "::1",
+      "parsedFields": {
+        "name": "Ivan",
+        "contact": "+79990000000",
+        "consent": "on"
+      },
+      "telegramResult": {
+        "ok": false,
+        "reason": "telegram_delivery_failed",
+        "error": "Telegram API responded with 404",
+        "details": "{\"ok\":false,\"error_code\":404,\"description\":\"Not Found\"}"
+      }
+    },
+    {
+      "at": "2026-04-28T08:20:53.203Z",
+      "method": "POST",
+      "path": "/api/forms/karina_audit_form",
+      "origin": "https://zheglova-karina.ru",
+      "referer": "",
+      "requestOrigin": "localhost:3100",
+      "contentType": "application/x-www-form-urlencoded",
+      "formKey": "karina_audit_form",
+      "siteId": "karina",
+      "ip": "::1",
+      "parsedFields": {
+        "name": "Ivan",
+        "contact": "+79990000000",
+        "consent": "on"
+      },
+      "telegramResult": {
+        "ok": false,
+        "reason": "telegram_delivery_failed",
+        "error": "Telegram API responded with 404",
+        "details": "{\"ok\":false,\"error_code\":404,\"description\":\"Not Found\"}"
+      }
+    }
+  ]
+}
