@@ -176,9 +176,9 @@
         "multipart/form-data"
       ],
       "telegramConfig": {
-        "tokenEnvKey": "TG_DEFAULT_BOT_TOKEN",
+        "tokenEnvKey": "RENT_TOKEN",
         "chatEnvKeys": [
-          "TG_DEFAULT_CHAT_ID"
+          "RENT_CHAT"
         ]
       },
       "antiSpamConfig": {
@@ -232,9 +232,9 @@
         "multipart/form-data"
       ],
       "telegramConfig": {
-        "tokenEnvKey": "TG_DEFAULT_BOT_TOKEN",
+        "tokenEnvKey": "RENT_TOKEN",
         "chatEnvKeys": [
-          "TG_DEFAULT_CHAT_ID"
+          "RENT_CHAT"
         ]
       },
       "antiSpamConfig": {
@@ -318,9 +318,9 @@
         "multipart/form-data"
       ],
       "telegramConfig": {
-        "tokenEnvKey": "TG_DEFAULT_BOT_TOKEN",
+        "tokenEnvKey": "RENT_TOKEN",
         "chatEnvKeys": [
-          "TG_DEFAULT_CHAT_ID"
+          "RENT_CHAT"
         ]
       },
       "antiSpamConfig": {
@@ -404,9 +404,9 @@
         "multipart/form-data"
       ],
       "telegramConfig": {
-        "tokenEnvKey": "TG_DEFAULT_BOT_TOKEN",
+        "tokenEnvKey": "RENT_TOKEN",
         "chatEnvKeys": [
-          "TG_DEFAULT_CHAT_ID"
+          "RENT_CHAT"
         ]
       },
       "antiSpamConfig": {
@@ -500,9 +500,9 @@
         "multipart/form-data"
       ],
       "telegramConfig": {
-        "tokenEnvKey": "TG_DEFAULT_BOT_TOKEN",
+        "tokenEnvKey": "BAKERY_TOKEN",
         "chatEnvKeys": [
-          "TG_DEFAULT_CHAT_ID"
+          "BAKERY_CHAT"
         ]
       },
       "antiSpamConfig": {
@@ -520,7 +520,7 @@
     {
       "formKey": "satrapezo_booking_form",
       "siteId": "satrapezo",
-      "title": "Бронирование",
+      "title": "Бронирование стола / зала",
       "allowedOrigins": [
         "https://satrapezo.ru",
         "https://www.satrapezo.ru",
@@ -538,7 +538,7 @@
       "fields": [
         {
           "name": "intent",
-          "label": "Тип брони",
+          "label": "Тип бронирования",
           "aliases": [],
           "type": "text",
           "required": false,
@@ -583,7 +583,7 @@
         },
         {
           "name": "hallId",
-          "label": "ID зала",
+          "label": "ID текущего зала",
           "aliases": [],
           "type": "text",
           "required": false,
@@ -592,7 +592,7 @@
         },
         {
           "name": "hallName",
-          "label": "Зал",
+          "label": "Название текущего зала",
           "aliases": [],
           "type": "text",
           "required": false,
@@ -862,9 +862,9 @@
         "multipart/form-data"
       ],
       "telegramConfig": {
-        "tokenEnvKey": "TG_DEFAULT_BOT_TOKEN",
+        "tokenEnvKey": "HYDRO_TOKEN",
         "chatEnvKeys": [
-          "TG_DEFAULT_CHAT_ID"
+          "HYDRO_CHAT"
         ]
       },
       "antiSpamConfig": {
