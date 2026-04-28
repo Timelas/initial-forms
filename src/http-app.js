@@ -1,6 +1,6 @@
 import crypto from "node:crypto";
 import { URL } from "node:url";
-import { renderAdminPage } from "./admin-page.js";
+import { renderAdminLoginPage, renderAdminPage } from "./admin-page.js";
 import { loadEnvFile } from "./env.js";
 import { appendAuditLog, appendRejectedLog, ensureStorage, loadRegistry, saveRegistry } from "./storage.js";
 import { sendToTelegram } from "./telegram.js";
@@ -252,9 +252,7 @@ async function reject(req, res, statusCode, reason, form, site, extra = {}) {
 }
 
 async function requireAdmin(req, res) {
-  const cookies = parseCookies(req.headers.cookie);
-  const session = cookies.session ? sessions.get(cookies.session) : null;
-  if (session) {
+  if (hasAdminAccess(req)) {
     return true;
   }
 
@@ -283,6 +281,21 @@ async function requireAdmin(req, res) {
     return false;
   }
 
+  json(res, 401, {
+    ok: false,
+    reason: "unauthorized",
+    error: reasonTexts.unauthorized
+  });
+  return false;
+}
+
+function hasAdminAccess(req) {
+  const cookies = parseCookies(req.headers.cookie);
+  const session = cookies.session ? sessions.get(cookies.session) : null;
+  if (session) {
+    return true;
+  }
+
   if (process.env.ADMIN_USERNAME && process.env.ADMIN_PASSWORD) {
     const authHeader = req.headers.authorization || "";
     const basicPrefix = "Basic ";
@@ -295,19 +308,21 @@ async function requireAdmin(req, res) {
     }
   }
 
-  json(res, 401, {
-    ok: false,
-    reason: "unauthorized",
-    error: reasonTexts.unauthorized
-  });
   return false;
 }
 
 async function handleAdminPage(req, res) {
+  if (!hasAdminAccess(req)) {
+    return html(res, 200, renderAdminLoginPage());
+  }
+  html(res, 200, renderAdminPage());
+}
+
+async function handleAdminLogin(req, res) {
   if (!(await requireAdmin(req, res))) {
     return;
   }
-  html(res, 200, renderAdminPage());
+  return json(res, 200, { ok: true });
 }
 
 function sendRoot(res) {
@@ -492,6 +507,10 @@ export async function appHandler(req, res) {
 
     if (req.method === "GET" && pathname === "/admin") {
       return handleAdminPage(req, res);
+    }
+
+    if (req.method === "POST" && pathname === "/api/admin/login") {
+      return handleAdminLogin(req, res);
     }
 
     if (req.method === "OPTIONS" && pathname.startsWith("/api/forms/")) {

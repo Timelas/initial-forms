@@ -570,3 +570,139 @@ export function renderAdminPage() {
   </body>
 </html>`;
 }
+
+export function renderAdminLoginPage() {
+  return `<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Forms Admin Login</title>
+    <style>
+      :root {
+        --bg: #f5efe6;
+        --panel: rgba(255, 251, 245, 0.94);
+        --ink: #1f2937;
+        --muted: #6b7280;
+        --accent: #a33b20;
+        --line: rgba(31, 41, 55, 0.12);
+        --error: #9f1d1d;
+        --shadow: 0 24px 60px rgba(89, 54, 28, 0.14);
+        --radius: 22px;
+        --font: "Avenir Next", "Segoe UI", sans-serif;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        font-family: var(--font);
+        color: var(--ink);
+        background:
+          radial-gradient(circle at top left, rgba(232, 185, 169, 0.55), transparent 28%),
+          radial-gradient(circle at bottom right, rgba(163, 59, 32, 0.16), transparent 30%),
+          linear-gradient(135deg, #f8f4ec, #efe1d0 55%, #f6eee6);
+      }
+      .card {
+        width: min(100%, 440px);
+        background: var(--panel);
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        padding: 28px;
+      }
+      h1 {
+        margin: 0 0 8px;
+        font-size: 34px;
+      }
+      p {
+        margin: 0 0 22px;
+        color: var(--muted);
+      }
+      form {
+        display: grid;
+        gap: 14px;
+      }
+      label {
+        display: grid;
+        gap: 6px;
+        font-size: 13px;
+      }
+      input, button {
+        width: 100%;
+        font: inherit;
+      }
+      input {
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 13px 14px;
+        background: rgba(255, 255, 255, 0.95);
+      }
+      button {
+        border: 0;
+        border-radius: 999px;
+        padding: 13px 16px;
+        background: var(--accent);
+        color: white;
+        cursor: pointer;
+      }
+      .error {
+        min-height: 20px;
+        color: var(--error);
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="card">
+      <h1>Forms Admin</h1>
+      <p>Войдите, чтобы управлять сайтами, формами и Telegram routing.</p>
+      <form id="loginForm">
+        <label>
+          <span>Логин</span>
+          <input id="username" name="username" autocomplete="username" required />
+        </label>
+        <label>
+          <span>Пароль</span>
+          <input id="password" name="password" type="password" autocomplete="current-password" required />
+        </label>
+        <div id="error" class="error"></div>
+        <button type="submit">Войти</button>
+      </form>
+    </main>
+    <script>
+      const form = document.getElementById("loginForm");
+      const errorNode = document.getElementById("error");
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        errorNode.textContent = "";
+
+        const payload = {
+          username: document.getElementById("username").value.trim(),
+          password: document.getElementById("password").value
+        };
+
+        const response = await fetch("/api/admin/login", {
+          method: "POST",
+          headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok) {
+          errorNode.textContent = data.error || "Не удалось войти";
+          return;
+        }
+
+        window.location.href = "/admin";
+      });
+    </script>
+  </body>
+</html>`;
+}
