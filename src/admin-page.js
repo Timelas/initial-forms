@@ -381,6 +381,7 @@ export function renderAdminPage() {
         "application/x-www-form-urlencoded",
         "multipart/form-data"
       ];
+      const apiTimeoutMs = 15000;
 
       function showStatus(message, isError = false) {
         els.status.textContent = message;
@@ -413,10 +414,23 @@ export function renderAdminPage() {
       }
 
       async function api(path, options = {}) {
-        const response = await fetch(path, {
-          headers: { Accept: "application/json", ...(options.headers || {}) },
-          ...options
-        });
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), apiTimeoutMs);
+        let response;
+        try {
+          response = await fetch(path, {
+            headers: { Accept: "application/json", ...(options.headers || {}) },
+            ...options,
+            signal: controller.signal
+          });
+        } catch (error) {
+          clearTimeout(timeoutId);
+          if (error.name === "AbortError") {
+            throw new Error("Сервер долго отвечает. Попробуйте обновить страницу.");
+          }
+          throw new Error("Ошибка сети. Попробуйте еще раз.");
+        }
+        clearTimeout(timeoutId);
         if (response.status === 401) {
           window.location.href = "/admin";
           throw new Error("Сессия истекла. Войдите заново.");
@@ -643,13 +657,10 @@ export function renderAdminPage() {
       }
 
       async function loadData() {
-        clearStatus();
-        const [sitesData, formsData] = await Promise.all([
-          api("/api/admin/sites"),
-          api("/api/admin/forms")
-        ]);
-        state.sites = sitesData.sites;
-        state.forms = formsData.forms;
+        showStatus("Загружаем сайты и формы...");
+        const bootstrap = await api("/api/admin/bootstrap");
+        state.sites = bootstrap.sites;
+        state.forms = bootstrap.forms;
         if (!state.selectedSiteId && state.sites[0]) {
           state.selectedSiteId = state.sites[0].siteId;
         }
@@ -661,6 +672,7 @@ export function renderAdminPage() {
         renderSiteEditor();
         renderForms();
         renderFormEditor();
+        clearStatus();
       }
 
       async function saveSite() {

@@ -556,6 +556,18 @@ async function handleAdminForms(req, res, pathname) {
   }
 }
 
+async function handleAdminBootstrap(req, res) {
+  if (!(await requireAdmin(req, res))) {
+    return;
+  }
+  const registry = await loadRegistry();
+  return json(res, 200, {
+    ok: true,
+    sites: registry.sites || [],
+    forms: registry.forms || []
+  });
+}
+
 export async function appHandler(req, res) {
   try {
     await ensureAppReady();
@@ -603,6 +615,10 @@ export async function appHandler(req, res) {
 
     if (pathname.startsWith("/api/admin/forms")) {
       return handleAdminForms(req, res, pathname);
+    }
+
+    if (req.method === "GET" && pathname === "/api/admin/bootstrap") {
+      return handleAdminBootstrap(req, res);
     }
 
     if (req.method === "GET" && pathname === "/api/admin/audit-log") {
