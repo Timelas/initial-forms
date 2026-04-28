@@ -176,9 +176,9 @@
         "multipart/form-data"
       ],
       "telegramConfig": {
-        "tokenEnvKey": "RENT_TOKEN",
+        "tokenEnvKey": "TG_DEFAULT_BOT_TOKEN",
         "chatEnvKeys": [
-          "RENT_CHAT"
+          "TG_DEFAULT_CHAT_ID"
         ]
       },
       "antiSpamConfig": {
@@ -232,9 +232,9 @@
         "multipart/form-data"
       ],
       "telegramConfig": {
-        "tokenEnvKey": "RENT_TOKEN",
+        "tokenEnvKey": "TG_DEFAULT_BOT_TOKEN",
         "chatEnvKeys": [
-          "RENT_CHAT"
+          "TG_DEFAULT_CHAT_ID"
         ]
       },
       "antiSpamConfig": {
@@ -318,9 +318,9 @@
         "multipart/form-data"
       ],
       "telegramConfig": {
-        "tokenEnvKey": "RENT_TOKEN",
+        "tokenEnvKey": "TG_DEFAULT_BOT_TOKEN",
         "chatEnvKeys": [
-          "RENT_CHAT"
+          "TG_DEFAULT_CHAT_ID"
         ]
       },
       "antiSpamConfig": {
@@ -404,9 +404,9 @@
         "multipart/form-data"
       ],
       "telegramConfig": {
-        "tokenEnvKey": "RENT_TOKEN",
+        "tokenEnvKey": "TG_DEFAULT_BOT_TOKEN",
         "chatEnvKeys": [
-          "RENT_CHAT"
+          "TG_DEFAULT_CHAT_ID"
         ]
       },
       "antiSpamConfig": {
@@ -500,9 +500,9 @@
         "multipart/form-data"
       ],
       "telegramConfig": {
-        "tokenEnvKey": "BAKERY_TOKEN",
+        "tokenEnvKey": "TG_DEFAULT_BOT_TOKEN",
         "chatEnvKeys": [
-          "BAKERY_CHAT"
+          "TG_DEFAULT_CHAT_ID"
         ]
       },
       "antiSpamConfig": {
@@ -607,9 +607,9 @@
         "multipart/form-data"
       ],
       "telegramConfig": {
-        "tokenEnvKey": "SATR_TOKEN",
+        "tokenEnvKey": "TG_DEFAULT_BOT_TOKEN",
         "chatEnvKeys": [
-          "SATR_CHAT"
+          "TG_DEFAULT_CHAT_ID"
         ]
       },
       "antiSpamConfig": {
@@ -704,9 +704,9 @@
         "multipart/form-data"
       ],
       "telegramConfig": {
-        "tokenEnvKey": "SATR_TOKEN",
+        "tokenEnvKey": "TG_DEFAULT_BOT_TOKEN",
         "chatEnvKeys": [
-          "SATR_CHAT"
+          "TG_DEFAULT_CHAT_ID"
         ]
       },
       "antiSpamConfig": {
@@ -862,9 +862,9 @@
         "multipart/form-data"
       ],
       "telegramConfig": {
-        "tokenEnvKey": "HYDRO_TOKEN",
+        "tokenEnvKey": "TG_DEFAULT_BOT_TOKEN",
         "chatEnvKeys": [
-          "HYDRO_CHAT"
+          "TG_DEFAULT_CHAT_ID"
         ]
       },
       "antiSpamConfig": {
@@ -918,9 +918,9 @@
         "multipart/form-data"
       ],
       "telegramConfig": {
-        "tokenEnvKey": "REGISTR_TOKEN",
+        "tokenEnvKey": "TG_DEFAULT_BOT_TOKEN",
         "chatEnvKeys": [
-          "REGISTR_CHAT"
+          "TG_DEFAULT_CHAT_ID"
         ]
       },
       "antiSpamConfig": {
@@ -984,9 +984,9 @@
         "multipart/form-data"
       ],
       "telegramConfig": {
-        "tokenEnvKey": "MCAS77_TOKEN",
+        "tokenEnvKey": "TG_DEFAULT_BOT_TOKEN",
         "chatEnvKeys": [
-          "MCAS77_CHAT"
+          "TG_DEFAULT_CHAT_ID"
         ]
       },
       "antiSpamConfig": {
@@ -1060,9 +1060,9 @@
         "multipart/form-data"
       ],
       "telegramConfig": {
-        "tokenEnvKey": "MCAS77_TOKEN",
+        "tokenEnvKey": "TG_DEFAULT_BOT_TOKEN",
         "chatEnvKeys": [
-          "MCAS77_CHAT"
+          "TG_DEFAULT_CHAT_ID"
         ]
       },
       "antiSpamConfig": {
@@ -1126,9 +1126,9 @@
         "multipart/form-data"
       ],
       "telegramConfig": {
-        "tokenEnvKey": "MCAS77_TOKEN",
+        "tokenEnvKey": "TG_DEFAULT_BOT_TOKEN",
         "chatEnvKeys": [
-          "MCAS77_CHAT"
+          "TG_DEFAULT_CHAT_ID"
         ]
       },
       "antiSpamConfig": {
@@ -1222,9 +1222,9 @@
         "multipart/form-data"
       ],
       "telegramConfig": {
-        "tokenEnvKey": "KITCHEN_TOKEN",
+        "tokenEnvKey": "TG_DEFAULT_BOT_TOKEN",
         "chatEnvKeys": [
-          "KITCHEN_CHAT"
+          "TG_DEFAULT_CHAT_ID"
         ]
       },
       "antiSpamConfig": {
@@ -1278,9 +1278,9 @@
         "multipart/form-data"
       ],
       "telegramConfig": {
-        "tokenEnvKey": "KITCHEN_TOKEN",
+        "tokenEnvKey": "TG_DEFAULT_BOT_TOKEN",
         "chatEnvKeys": [
-          "KITCHEN_CHAT"
+          "TG_DEFAULT_CHAT_ID"
         ]
       },
       "antiSpamConfig": {
@@ -1364,9 +1364,9 @@
         "multipart/form-data"
       ],
       "telegramConfig": {
-        "tokenEnvKey": "ELECTRIC_TOKEN",
+        "tokenEnvKey": "TG_DEFAULT_BOT_TOKEN",
         "chatEnvKeys": [
-          "ELECTRIC_CHAT"
+          "TG_DEFAULT_CHAT_ID"
         ]
       },
       "antiSpamConfig": {
@@ -1420,9 +1420,9 @@
         "multipart/form-data"
       ],
       "telegramConfig": {
-        "tokenEnvKey": "ELECTRIC_TOKEN",
+        "tokenEnvKey": "TG_DEFAULT_BOT_TOKEN",
         "chatEnvKeys": [
-          "ELECTRIC_CHAT"
+          "TG_DEFAULT_CHAT_ID"
         ]
       },
       "antiSpamConfig": {
@@ -1490,9 +1490,9 @@
         "multipart/form-data"
       ],
       "telegramConfig": {
-        "tokenEnvKey": "ELECTRIC_TOKEN",
+        "tokenEnvKey": "TG_DEFAULT_BOT_TOKEN",
         "chatEnvKeys": [
-          "ELECTRIC_CHAT"
+          "TG_DEFAULT_CHAT_ID"
         ]
       },
       "antiSpamConfig": {
@@ -1554,9 +1554,9 @@
         "multipart/form-data"
       ],
       "telegramConfig": {
-        "tokenEnvKey": "VREDNET_TOKEN",
+        "tokenEnvKey": "TG_DEFAULT_BOT_TOKEN",
         "chatEnvKeys": [
-          "VREDNET_CHAT"
+          "TG_DEFAULT_CHAT_ID"
         ]
       },
       "antiSpamConfig": {
@@ -1618,9 +1618,9 @@
         "multipart/form-data"
       ],
       "telegramConfig": {
-        "tokenEnvKey": "VREDNET_TOKEN",
+        "tokenEnvKey": "TG_DEFAULT_BOT_TOKEN",
         "chatEnvKeys": [
-          "VREDNET_CHAT"
+          "TG_DEFAULT_CHAT_ID"
         ]
       },
       "antiSpamConfig": {
@@ -1682,9 +1682,9 @@
         "multipart/form-data"
       ],
       "telegramConfig": {
-        "tokenEnvKey": "VREDNET_TOKEN",
+        "tokenEnvKey": "TG_DEFAULT_BOT_TOKEN",
         "chatEnvKeys": [
-          "VREDNET_CHAT"
+          "TG_DEFAULT_CHAT_ID"
         ]
       },
       "antiSpamConfig": {
@@ -1778,9 +1778,9 @@
         "multipart/form-data"
       ],
       "telegramConfig": {
-        "tokenEnvKey": "VREDNET_TOKEN",
+        "tokenEnvKey": "TG_DEFAULT_BOT_TOKEN",
         "chatEnvKeys": [
-          "VREDNET_CHAT"
+          "TG_DEFAULT_CHAT_ID"
         ]
       },
       "antiSpamConfig": {
@@ -1854,10 +1854,9 @@
         "multipart/form-data"
       ],
       "telegramConfig": {
-        "tokenEnvKey": "ONEART_TOKEN",
+        "tokenEnvKey": "TG_DEFAULT_BOT_TOKEN",
         "chatEnvKeys": [
-          "ONEART_CHATARTEM",
-          "ONEART_CHATVANIK"
+          "TG_DEFAULT_CHAT_ID"
         ]
       },
       "antiSpamConfig": {
@@ -1931,10 +1930,9 @@
         "multipart/form-data"
       ],
       "telegramConfig": {
-        "tokenEnvKey": "ONEART_TOKEN",
+        "tokenEnvKey": "TG_DEFAULT_BOT_TOKEN",
         "chatEnvKeys": [
-          "ONEART_CHATARTEM",
-          "ONEART_CHATVANIK"
+          "TG_DEFAULT_CHAT_ID"
         ]
       },
       "antiSpamConfig": {
@@ -2018,10 +2016,9 @@
         "multipart/form-data"
       ],
       "telegramConfig": {
-        "tokenEnvKey": "ONEART_TOKEN",
+        "tokenEnvKey": "TG_DEFAULT_BOT_TOKEN",
         "chatEnvKeys": [
-          "ONEART_CHATARTEM",
-          "ONEART_CHATVANIK"
+          "TG_DEFAULT_CHAT_ID"
         ]
       },
       "antiSpamConfig": {
@@ -2085,9 +2082,9 @@
         "multipart/form-data"
       ],
       "telegramConfig": {
-        "tokenEnvKey": "KARINA_TOKEN",
+        "tokenEnvKey": "TG_DEFAULT_BOT_TOKEN",
         "chatEnvKeys": [
-          "KARINA_CHAT"
+          "TG_DEFAULT_CHAT_ID"
         ]
       },
       "antiSpamConfig": {
@@ -2151,9 +2148,9 @@
         "multipart/form-data"
       ],
       "telegramConfig": {
-        "tokenEnvKey": "KARINA_TOKEN",
+        "tokenEnvKey": "TG_DEFAULT_BOT_TOKEN",
         "chatEnvKeys": [
-          "KARINA_CHAT"
+          "TG_DEFAULT_CHAT_ID"
         ]
       },
       "antiSpamConfig": {
