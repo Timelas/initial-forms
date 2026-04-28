@@ -87,10 +87,16 @@ export function renderAdminPage(initialData = { sites: [], forms: [] }) {
         padding: 14px;
         background: white;
         cursor: pointer;
+        transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+      }
+      .site-card:hover, .form-card:hover {
+        transform: translateY(-1px);
+        border-color: rgba(163, 59, 32, 0.28);
       }
       .site-card.active, .form-card.active {
         border-color: var(--accent);
-        box-shadow: inset 0 0 0 1px var(--accent);
+        box-shadow: inset 0 0 0 1px var(--accent), 0 10px 24px rgba(163, 59, 32, 0.12);
+        background: linear-gradient(180deg, #fffdf9, #fff4ec);
       }
       .content-grid {
         display: grid;
@@ -531,6 +537,7 @@ export function renderAdminPage(initialData = { sites: [], forms: [] }) {
           node.innerHTML = "<strong>" + form.title + "</strong><div class='muted tiny inline-code'>" + form.formKey + "</div>";
           node.onclick = () => {
             state.selectedFormKey = form.formKey;
+            renderForms();
             renderFormEditor();
           };
           els.formList.appendChild(node);
@@ -664,9 +671,9 @@ export function renderAdminPage(initialData = { sites: [], forms: [] }) {
         ].join("\\n") : "Сохраните форму, чтобы получить готовый пример.";
       }
 
-      async function loadData() {
+      async function loadData(force = false) {
         showStatus("Загружаем сайты и формы...");
-        if (state.sites.length === 0 && state.forms.length === 0) {
+        if (force || (state.sites.length === 0 && state.forms.length === 0)) {
           const bootstrap = await api("/api/admin/bootstrap");
           state.sites = bootstrap.sites;
           state.forms = bootstrap.forms;
@@ -716,7 +723,7 @@ export function renderAdminPage(initialData = { sites: [], forms: [] }) {
           body: JSON.stringify(payload)
         });
         state.selectedSiteId = payload.siteId;
-        await loadData();
+        await loadData(true);
         showStatus("Сайт сохранен.");
       }
 
@@ -729,7 +736,7 @@ export function renderAdminPage(initialData = { sites: [], forms: [] }) {
         await api("/api/admin/sites/" + encodeURIComponent(site.siteId), { method: "DELETE" });
         state.selectedSiteId = null;
         state.selectedFormKey = null;
-        await loadData();
+        await loadData(true);
         showStatus("Сайт удален.");
       }
 
@@ -784,7 +791,7 @@ export function renderAdminPage(initialData = { sites: [], forms: [] }) {
           body: JSON.stringify(payload)
         });
         state.selectedFormKey = payload.formKey;
-        await loadData();
+        await loadData(true);
         showStatus("Форма сохранена.");
       }
 
@@ -796,11 +803,11 @@ export function renderAdminPage(initialData = { sites: [], forms: [] }) {
         }
         await api("/api/admin/forms/" + encodeURIComponent(form.formKey), { method: "DELETE" });
         state.selectedFormKey = null;
-        await loadData();
+        await loadData(true);
         showStatus("Форма удалена.");
       }
 
-      document.getElementById("refreshBtn").onclick = loadData;
+      document.getElementById("refreshBtn").onclick = () => loadData(true);
       document.getElementById("newSiteBtn").onclick = () => {
         state.selectedSiteId = null;
         state.selectedFormKey = null;
