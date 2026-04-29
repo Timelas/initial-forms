@@ -2,6 +2,8 @@ function resolveEnvArray(keys = []) {
   return keys.map((key) => process.env[key]).filter(Boolean);
 }
 
+const telegramRequestTimeoutMs = Number(process.env.TELEGRAM_REQUEST_TIMEOUT_MS || 10000);
+
 function escapeHtml(value) {
   return String(value)
     .replaceAll("&", "&amp;")
@@ -94,18 +96,41 @@ export async function sendToTelegram(form, site, fields) {
   const text = [...header, "", ...body].join("\n");
 
   for (const chatId of chatIds) {
-    const response = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json"
-      },
-      body: JSON.stringify({
-        chat_id: chatId,
-        text,
-        parse_mode: "HTML"
-      })
-    });
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), telegramRequestTimeoutMs);
+    let response;
+
+    try {
+      response = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json"
+        },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text,
+          parse_mode: "HTML"
+        }),
+        signal: controller.signal
+      });
+    } catch (error) {
+      clearTimeout(timeoutId);
+      if (error?.name === "AbortError") {
+        return {
+          ok: false,
+          reason: "telegram_delivery_failed",
+          error: `Telegram request timed out after ${telegramRequestTimeoutMs}ms`
+        };
+      }
+      return {
+        ok: false,
+        reason: "telegram_delivery_failed",
+        error: error?.message || "Telegram request failed"
+      };
+    }
+
+    clearTimeout(timeoutId);
 
     if (!response.ok) {
       const errorText = await response.text();
