@@ -1202,9 +1202,9 @@
         "multipart/form-data"
       ],
       "telegramConfig": {
-        "tokenEnvKey": "TG_DEFAULT_BOT_TOKEN",
+        "tokenEnvKey": "ELECTRIC_TOKEN",
         "chatEnvKeys": [
-          "TG_DEFAULT_CHAT_ID"
+          "ELECTRIC_CHAT"
         ]
       },
       "antiSpamConfig": {
@@ -1258,9 +1258,9 @@
         "multipart/form-data"
       ],
       "telegramConfig": {
-        "tokenEnvKey": "TG_DEFAULT_BOT_TOKEN",
+        "tokenEnvKey": "ELECTRIC_TOKEN",
         "chatEnvKeys": [
-          "TG_DEFAULT_CHAT_ID"
+          "ELECTRIC_CHAT"
         ]
       },
       "antiSpamConfig": {
@@ -1328,9 +1328,9 @@
         "multipart/form-data"
       ],
       "telegramConfig": {
-        "tokenEnvKey": "TG_DEFAULT_BOT_TOKEN",
+        "tokenEnvKey": "ELECTRIC_TOKEN",
         "chatEnvKeys": [
-          "TG_DEFAULT_CHAT_ID"
+          "ELECTRIC_CHAT"
         ]
       },
       "antiSpamConfig": {
