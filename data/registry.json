@@ -104,6 +104,16 @@
       ],
       "apiBaseUrl": "https://initial-forms.ru",
       "status": "active"
+    },
+    {
+      "siteId": "stroy_nastroy",
+      "name": "Stroy-Nastroy",
+      "frontendDomains": [
+        "https://stroy-na-stroy.ru",
+        "https://www.stroy-na-stroy.ru"
+      ],
+      "apiBaseUrl": "https://initial-forms.ru",
+      "status": "active"
     }
   ],
   "forms": [
@@ -1992,6 +2002,276 @@
         "tokenEnvKey": "KARINA_TOKEN",
         "chatEnvKeys": [
           "KARINA_CHAT"
+        ]
+      },
+      "antiSpamConfig": {
+        "enabled": true,
+        "turnstile": false,
+        "honeypotField": "website",
+        "minFillTimeMs": 1500,
+        "rateLimit": {
+          "windowMs": 60000,
+          "max": 5
+        }
+      },
+      "enabled": true
+    },
+    {
+      "formKey": "stroy_nastroy_hero_form",
+      "siteId": "stroy_nastroy",
+      "title": "Главная форма",
+      "allowedOrigins": [
+        "https://stroy-na-stroy.ru",
+        "https://www.stroy-na-stroy.ru"
+      ],
+      "aliases": {
+        "access_key": [],
+        "name": [],
+        "phone": [],
+        "company": [],
+        "consent": []
+      },
+      "fields": [
+        {
+          "name": "access_key",
+          "label": "Access key",
+          "aliases": [],
+          "type": "hidden",
+          "required": false,
+          "omit": true,
+          "map": "access_key"
+        },
+        {
+          "name": "name",
+          "label": "Имя",
+          "aliases": [],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "name"
+        },
+        {
+          "name": "phone",
+          "label": "Телефон",
+          "aliases": [],
+          "type": "tel",
+          "required": false,
+          "omit": false,
+          "map": "phone"
+        },
+        {
+          "name": "company",
+          "label": "Компания",
+          "aliases": [],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "company"
+        },
+        {
+          "name": "consent",
+          "label": "Согласие",
+          "aliases": [],
+          "type": "checkbox",
+          "required": false,
+          "omit": false,
+          "map": "consent"
+        }
+      ],
+      "requiredFields": [
+        "name",
+        "phone",
+        "consent"
+      ],
+      "acceptedContentTypes": [
+        "application/json",
+        "application/x-www-form-urlencoded",
+        "multipart/form-data"
+      ],
+      "telegramConfig": {
+        "tokenEnvKey": "TG_STROYNASTROY_BOT_TOKEN",
+        "chatEnvKeys": [
+          "TG_STROYNASTROY_CHAT_ID"
+        ]
+      },
+      "antiSpamConfig": {
+        "enabled": true,
+        "turnstile": false,
+        "honeypotField": "website",
+        "minFillTimeMs": 1500,
+        "rateLimit": {
+          "windowMs": 60000,
+          "max": 5
+        }
+      },
+      "enabled": true
+    },
+    {
+      "formKey": "stroy_nastroy_catalog_form",
+      "siteId": "stroy_nastroy",
+      "title": "Форма Каталога",
+      "allowedOrigins": [
+        "https://stroy-na-stroy.ru",
+        "https://www.stroy-na-stroy.ru"
+      ],
+      "aliases": {
+        "access_key": [],
+        "name": [],
+        "phone": [],
+        "message": [],
+        "consent": []
+      },
+      "fields": [
+        {
+          "name": "access_key",
+          "label": "Access key",
+          "aliases": [],
+          "type": "hidden",
+          "required": false,
+          "omit": true,
+          "map": "access_key"
+        },
+        {
+          "name": "name",
+          "label": "Имя",
+          "aliases": [],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "name"
+        },
+        {
+          "name": "phone",
+          "label": "Телефон",
+          "aliases": [],
+          "type": "tel",
+          "required": false,
+          "omit": false,
+          "map": "phone"
+        },
+        {
+          "name": "message",
+          "label": "Сообщение",
+          "aliases": [],
+          "type": "textarea",
+          "required": false,
+          "omit": false,
+          "map": "message"
+        },
+        {
+          "name": "consent",
+          "label": "Согласие",
+          "aliases": [],
+          "type": "checkbox",
+          "required": false,
+          "omit": false,
+          "map": "consent"
+        }
+      ],
+      "requiredFields": [
+        "name",
+        "phone",
+        "consent"
+      ],
+      "acceptedContentTypes": [
+        "application/json",
+        "application/x-www-form-urlencoded",
+        "multipart/form-data"
+      ],
+      "telegramConfig": {
+        "tokenEnvKey": "TG_STROYNASTROY_BOT_TOKEN",
+        "chatEnvKeys": [
+          "TG_STROYNASTROY_CHAT_ID"
+        ]
+      },
+      "antiSpamConfig": {
+        "enabled": true,
+        "turnstile": false,
+        "honeypotField": "website",
+        "minFillTimeMs": 1500,
+        "rateLimit": {
+          "windowMs": 60000,
+          "max": 5
+        }
+      },
+      "enabled": true
+    },
+    {
+      "formKey": "stroy_nastroy_contact_form",
+      "siteId": "stroy_nastroy",
+      "title": "Контакты",
+      "allowedOrigins": [
+        "https://stroy-na-stroy.ru",
+        "https://www.stroy-na-stroy.ru"
+      ],
+      "aliases": {
+        "access_key": [],
+        "name": [],
+        "phone": [],
+        "message": [],
+        "consent": []
+      },
+      "fields": [
+        {
+          "name": "access_key",
+          "label": "Access key",
+          "aliases": [],
+          "type": "hidden",
+          "required": false,
+          "omit": true,
+          "map": "access_key"
+        },
+        {
+          "name": "name",
+          "label": "Имя",
+          "aliases": [],
+          "type": "text",
+          "required": false,
+          "omit": false,
+          "map": "name"
+        },
+        {
+          "name": "phone",
+          "label": "Телефон",
+          "aliases": [],
+          "type": "tel",
+          "required": false,
+          "omit": false,
+          "map": "phone"
+        },
+        {
+          "name": "message",
+          "label": "Сообщение",
+          "aliases": [],
+          "type": "textarea",
+          "required": false,
+          "omit": false,
+          "map": "message"
+        },
+        {
+          "name": "consent",
+          "label": "Согласие",
+          "aliases": [],
+          "type": "checkbox",
+          "required": false,
+          "omit": false,
+          "map": "consent"
+        }
+      ],
+      "requiredFields": [
+        "name",
+        "phone",
+        "consent"
+      ],
+      "acceptedContentTypes": [
+        "application/json",
+        "application/x-www-form-urlencoded",
+        "multipart/form-data"
+      ],
+      "telegramConfig": {
+        "tokenEnvKey": "TG_STROYNASTROY_BOT_TOKEN",
+        "chatEnvKeys": [
+          "TG_STROYNASTROY_CHAT_ID"
         ]
       },
       "antiSpamConfig": {
